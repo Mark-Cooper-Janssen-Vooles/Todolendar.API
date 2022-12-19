@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Todolender.API.Data;
+using Todolender.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddDbContext<TodolenderDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Todolender"));
 });
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

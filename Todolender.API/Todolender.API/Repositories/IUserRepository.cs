@@ -5,6 +5,6 @@ namespace Todolender.API.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> CreateUserAsync(CreateUserRequest createUserRequest);
+        Task<User> CreateUserAsync(User user);
     }
 }
