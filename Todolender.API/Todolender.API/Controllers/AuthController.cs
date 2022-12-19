@@ -24,17 +24,12 @@ namespace Todolender.API.Controllers
         [ActionName("CreateUserAsync")]
         public async Task<IActionResult> CreateUserAsync(CreateUserRequest createUserRequest)
         {
-            // TODO: validations 
-
             // convert DTO to domain model
             var user = mapper.Map<User>(createUserRequest);
-
             // use repository to create 
             user = await userRepository.CreateUserAsync(user);
-
             // convert domain back to DTO 
             var userDto = mapper.Map<UserDTO>(user);
-
             // give user response + DTO
             return new CreatedAtActionResult(nameof(CreateUserAsync), "Auth", new { id = userDto.Id }, userDto);
         }
@@ -43,20 +38,14 @@ namespace Todolender.API.Controllers
         [Route("user/{id:guid}")]
         public async Task<IActionResult> UpdateUserAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
         {
-            // TODO: Validations 
             // TODO: Authenticated (this needs to be the correct user logged in to do this!
 
-            // convert DTO to domain model 
             var user = mapper.Map<User>(updateUserRequest);
-
-            // Update user using repository 
             user = await userRepository.UpdateUserAsync(id, user);
             if (user == null) return NotFound();
 
-            // convert domain back to DTO 
             var userDto = mapper.Map<UserDTO>(user);
 
-            // return OK response 
             return Ok(userDto);
         }
 
