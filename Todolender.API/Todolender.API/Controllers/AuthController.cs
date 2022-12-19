@@ -56,8 +56,7 @@ namespace Todolender.API.Controllers
         }
 
         [HttpPut]
-        [Route("user")]
-        [Route("{id:guid}")]
+        [Route("user/{id:guid}")]
         public async Task<IActionResult> UpdateUserAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
         {
             // TODO: Validations 
@@ -76,10 +75,7 @@ namespace Todolender.API.Controllers
 
             // Update user using repository 
             user = await userRepository.UpdateUserAsync(id, user);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            if (user == null) return NotFound();
 
             // convert domain back to DTO 
             var userDto = new UserDTO()
@@ -98,6 +94,28 @@ namespace Todolender.API.Controllers
             return Ok(userDto);
         }
 
+        [HttpDelete]
+        [Route("user/{id:guid}")]
+        public async Task<IActionResult> DeleteUserAsync(Guid id)
+        {
+            var user = await userRepository.DeleteUserAsync(id);
+            if (user == null) return NotFound();
+
+            var userDto = new UserDTO()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                PasswordHash = user.PasswordHash,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Mobile = user.Mobile,
+                CurrentGoal = user.CurrentGoal,
+                LastActive = user.LastActive
+            };
+
+            return Ok(userDto);
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> LoginAsync(LoginRequest loginRequest)
@@ -107,7 +125,7 @@ namespace Todolender.API.Controllers
             // check if user is authenticated 
             var user = await userRepository.AuthenticateUserAsync(loginRequest.Email, loginRequest.Password);
 
-            if ( user != null )
+            if (user != null)
             {
                 return Ok(user); // this will need to be changed to token later
             }

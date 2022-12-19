@@ -41,6 +41,20 @@ namespace Todolender.API.Repositories
             return user;
         }
 
+        public async Task<User> DeleteUserAsync(Guid id)
+        {
+            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                return null;
+            }
+
+            dbContext.Users.Remove(user);
+            await dbContext.SaveChangesAsync();
+
+            return user;
+        }
+
         public async Task<User> UpdateUserAsync(Guid id, User updatedUser)
         {
             var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
