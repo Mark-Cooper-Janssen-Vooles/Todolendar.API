@@ -6,9 +6,15 @@ namespace Todolender.API.Models.Profiles
 {
     public class UsersProfile : Profile
     {
-        public UsersProfile() 
+        public UsersProfile()
         {
             CreateMap<User, UserDTO>()
+                .ReverseMap();
+
+            CreateMap<User, CreateUserRequest>()
+                .ReverseMap();
+
+            CreateMap<User, UpdateUserRequest>()
                 .ReverseMap();
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO;
 using Todolender.API.Repositories;
@@ -10,10 +11,12 @@ namespace Todolender.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserRepository userRepository;
+        private readonly IMapper mapper;
 
-        public AuthController(IUserRepository userRepository)
+        public AuthController(IUserRepository userRepository, IMapper mapper)
         {
             this.userRepository = userRepository;
+            this.mapper = mapper;
         }
 
         [HttpPost]
@@ -22,34 +25,15 @@ namespace Todolender.API.Controllers
         public async Task<IActionResult> CreateUserAsync(CreateUserRequest createUserRequest)
         {
             // TODO: validations 
-            // TODO: Mapper
 
             // convert DTO to domain model
-            var user = new User()
-            {
-                Email = createUserRequest.Email,
-                PasswordHash = createUserRequest.PasswordHash,
-                FirstName = createUserRequest.FirstName,
-                LastName = createUserRequest.LastName,
-                Mobile = createUserRequest.Mobile,
-                CurrentGoal = createUserRequest.CurrentGoal
-            };
+            var user = mapper.Map<User>(createUserRequest);
 
             // use repository to create 
             user = await userRepository.CreateUserAsync(user);
 
             // convert domain back to DTO 
-            var userDto = new UserDTO()
-            {
-                Id = user.Id,
-                Email = user.Email,
-                PasswordHash = user.PasswordHash,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Mobile = user.Mobile,
-                CurrentGoal = user.CurrentGoal,
-                LastActive = user.LastActive
-            };
+            var userDto = mapper.Map<UserDTO>(user);
 
             // give user response + DTO
             return new CreatedAtActionResult(nameof(CreateUserAsync), "Auth", new { id = userDto.Id }, userDto);
@@ -63,32 +47,14 @@ namespace Todolender.API.Controllers
             // TODO: Authenticated (this needs to be the correct user logged in to do this!
 
             // convert DTO to domain model 
-            var user = new User()
-            {
-                Email = updateUserRequest.Email,
-                PasswordHash = updateUserRequest.PasswordHash,
-                FirstName = updateUserRequest.FirstName,
-                LastName = updateUserRequest.LastName,
-                Mobile = updateUserRequest.Mobile,
-                CurrentGoal = updateUserRequest.CurrentGoal
-            };
+            var user = mapper.Map<User>(updateUserRequest);
 
             // Update user using repository 
             user = await userRepository.UpdateUserAsync(id, user);
             if (user == null) return NotFound();
 
             // convert domain back to DTO 
-            var userDto = new UserDTO()
-            {
-                Id = user.Id,
-                Email = user.Email,
-                PasswordHash = user.PasswordHash,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Mobile = user.Mobile,
-                CurrentGoal = user.CurrentGoal,
-                LastActive = user.LastActive
-            };
+            var userDto = mapper.Map<UserDTO>(user);
 
             // return OK response 
             return Ok(userDto);
@@ -101,17 +67,19 @@ namespace Todolender.API.Controllers
             var user = await userRepository.DeleteUserAsync(id);
             if (user == null) return NotFound();
 
-            var userDto = new UserDTO()
-            {
-                Id = user.Id,
-                Email = user.Email,
-                PasswordHash = user.PasswordHash,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Mobile = user.Mobile,
-                CurrentGoal = user.CurrentGoal,
-                LastActive = user.LastActive
-            };
+            var userDto = mapper.Map<UserDTO>(user);
+
+            //var userDto = new UserDTO()
+            //{
+            //    Id = user.Id,
+            //    Email = user.Email,
+            //    PasswordHash = user.PasswordHash,
+            //    FirstName = user.FirstName,
+            //    LastName = user.LastName,
+            //    Mobile = user.Mobile,
+            //    CurrentGoal = user.CurrentGoal,
+            //    LastActive = user.LastActive
+            //};
 
             return Ok(userDto);
         }
