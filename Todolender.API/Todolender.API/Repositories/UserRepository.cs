@@ -40,5 +40,24 @@ namespace Todolender.API.Repositories
 
             return user;
         }
+
+        public async Task<User> UpdateUserAsync(Guid id, User updatedUser)
+        {
+            var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (existingUser == null)
+            {
+                return null;
+            }
+
+            existingUser.Email = updatedUser.Email;
+            existingUser.PasswordHash = updatedUser.PasswordHash;
+            existingUser.FirstName = updatedUser.FirstName;
+            existingUser.LastName = updatedUser.LastName;
+            existingUser.Mobile = updatedUser.Mobile;
+            existingUser.CurrentGoal = updatedUser.CurrentGoal;
+            await dbContext.SaveChangesAsync();
+
+            return existingUser;
+        }
     }
 }

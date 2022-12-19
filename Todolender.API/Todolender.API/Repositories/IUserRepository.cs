@@ -7,5 +7,6 @@ namespace Todolender.API.Repositories
     {
         Task<User> AuthenticateUserAsync(string email, string password);
         Task<User> CreateUserAsync(User user);
+        Task<User> UpdateUserAsync(Guid id, User user);
     }
 }

@@ -55,6 +55,49 @@ namespace Todolender.API.Controllers
             return new CreatedAtActionResult(nameof(CreateUserAsync), "Auth", new { id = userDto.Id }, userDto);
         }
 
+        [HttpPut]
+        [Route("user")]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> UpdateUserAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
+        {
+            // TODO: Validations 
+            // TODO: Authenticated (this needs to be the correct user logged in to do this!
+
+            // convert DTO to domain model 
+            var user = new User()
+            {
+                Email = updateUserRequest.Email,
+                PasswordHash = updateUserRequest.PasswordHash,
+                FirstName = updateUserRequest.FirstName,
+                LastName = updateUserRequest.LastName,
+                Mobile = updateUserRequest.Mobile,
+                CurrentGoal = updateUserRequest.CurrentGoal
+            };
+
+            // Update user using repository 
+            user = await userRepository.UpdateUserAsync(id, user);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // convert domain back to DTO 
+            var userDto = new UserDTO()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                PasswordHash = user.PasswordHash,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Mobile = user.Mobile,
+                CurrentGoal = user.CurrentGoal,
+                LastActive = user.LastActive
+            };
+
+            // return OK response 
+            return Ok(userDto);
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> LoginAsync(LoginRequest loginRequest)
