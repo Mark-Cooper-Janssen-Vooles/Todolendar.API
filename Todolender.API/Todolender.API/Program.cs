@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 using Todolender.API.Data;
 using Todolender.API.Repositories;
@@ -39,6 +40,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("user", policy =>
+    {
+        policy.RequireAssertion(context =>
+        {
+            var claimUserId = context?.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.UserData)?.Value.ToLower();
+
+            // /api/v1/mailbox/email@example.com/inbox/messages/list
+            var httpContextUserId = new HttpContextAccessor().HttpContext.Request.RouteValues["id"]?.ToString().ToLower();
+
+            if (claimUserId == null || httpContextUserId == null) return false;
+
+            return claimUserId == httpContextUserId;
+        });
+    });
+});
 
 var app = builder.Build();
 
