@@ -39,7 +39,6 @@ namespace Todolender.API.Controllers
         public async Task<IActionResult> UpdateUserAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
         {
             // TODO: Authenticated (this needs to be the correct user logged in to do this!
-
             var user = mapper.Map<User>(updateUserRequest);
             user = await userRepository.UpdateUserAsync(id, user);
             if (user == null) return NotFound();
@@ -65,18 +64,13 @@ namespace Todolender.API.Controllers
         [Route("login")]
         public async Task<IActionResult> LoginAsync(LoginRequest loginRequest)
         {
-            // TODO: Validations 
-
-            // check if user is authenticated 
             var user = await userRepository.AuthenticateUserAsync(loginRequest.Email, loginRequest.Password);
-
             if (user != null)
             {
                 return Ok(user); // this will need to be changed to JWT token later
             }
 
             return BadRequest("Email or password is incorrect.");
-
         }
     }
 }
