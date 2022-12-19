@@ -11,7 +11,7 @@ https://app.diagrams.net/#G1NYqMTprbHGnyYW-6s-Pc1sLVT3hZQu_x
 
 ### Tech 
 
-This project is created as a .net web api, using entity framework / sql server / 
+This project is created as a .net web api, using entity framework / sql server / fluent validations / automapper.
 
 ### Patterns 
 
