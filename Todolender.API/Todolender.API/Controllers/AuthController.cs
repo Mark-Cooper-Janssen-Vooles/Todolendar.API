@@ -69,18 +69,6 @@ namespace Todolender.API.Controllers
 
             var userDto = mapper.Map<UserDTO>(user);
 
-            //var userDto = new UserDTO()
-            //{
-            //    Id = user.Id,
-            //    Email = user.Email,
-            //    PasswordHash = user.PasswordHash,
-            //    FirstName = user.FirstName,
-            //    LastName = user.LastName,
-            //    Mobile = user.Mobile,
-            //    CurrentGoal = user.CurrentGoal,
-            //    LastActive = user.LastActive
-            //};
-
             return Ok(userDto);
         }
 
@@ -95,7 +83,7 @@ namespace Todolender.API.Controllers
 
             if (user != null)
             {
-                return Ok(user); // this will need to be changed to token later
+                return Ok(user); // this will need to be changed to JWT token later
             }
 
             return BadRequest("Email or password is incorrect.");

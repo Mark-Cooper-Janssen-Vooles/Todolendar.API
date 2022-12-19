@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KdVKoiHKX2PJC91idsujkmhF/JRYB5htfR1he1xUJynxG5XFgi/9nPafadJNsGIvtGVhmJGY4GBZXqS1BJye2A==",
+  "dgSpecHash": "ic4BnHcgSxg5fyPYUS55j1OqGkX2PP8FJFMBm+JyIln+s3XLDMgv9Iy4BiX9xoV9jmbMVEv7Df7hGfOZYtwCEA==",
   "success": true,
   "projectFilePath": "C:\\dev\\01_learnings\\02_todolender\\Todolender.API\\Todolender.API\\Todolender.API\\Todolender.API.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,9 @@
     "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\fluentvalidation\\11.4.0\\fluentvalidation.11.4.0.nupkg.sha512",
+    "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.2\\fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
+    "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.4.0\\fluentvalidation.dependencyinjectionextensions.11.4.0.nupkg.sha512",
     "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\mark.janssen-vooles\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

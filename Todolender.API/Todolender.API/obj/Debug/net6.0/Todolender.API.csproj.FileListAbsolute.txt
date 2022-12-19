@@ -87,3 +87,6 @@ C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\b
 C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\AutoMapper.dll
 C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\FluentValidation.dll
+C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
