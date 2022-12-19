@@ -7,7 +7,7 @@ namespace Todolender.API.Controllers
 {
     [ApiController]
     [Route("Auth")]
-    public class AuthController
+    public class AuthController : ControllerBase
     {
         private readonly IUserRepository userRepository;
 
@@ -17,9 +17,13 @@ namespace Todolender.API.Controllers
         }
 
         [HttpPost]
+        [Route("user")]
         [ActionName("CreateUserAsync")]
         public async Task<IActionResult> CreateUserAsync(CreateUserRequest createUserRequest)
         {
+            // TODO: validations 
+            // TODO: Mapper
+
             // convert DTO to domain model
             var user = new User()
             {
@@ -49,8 +53,23 @@ namespace Todolender.API.Controllers
 
             // give user response + DTO
             return new CreatedAtActionResult(nameof(CreateUserAsync), "Auth", new { id = userDto.Id }, userDto);
+        }
 
-            //return new CreatedAtAction(nameof(CreateUserAsync), new { id = userDto.Id }, userDto);
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> LoginAsync(LoginRequest loginRequest)
+        {
+            // TODO: Validations 
+
+            // check if user is authenticated 
+            var user = await userRepository.AuthenticateUserAsync(loginRequest.Email, loginRequest.Password);
+
+            if ( user != null )
+            {
+                return Ok(user); // this will need to be changed to token later
+            }
+
+            return BadRequest("Email or password is incorrect.");
 
         }
     }
