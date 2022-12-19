@@ -13,11 +13,13 @@ namespace Todolender.API.Controllers
     {
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
+        private readonly ITokenHandler tokenHandler;
 
-        public AuthController(IUserRepository userRepository, IMapper mapper)
+        public AuthController(IUserRepository userRepository, IMapper mapper, ITokenHandler tokenHandler)
         {
             this.userRepository = userRepository;
             this.mapper = mapper;
+            this.tokenHandler = tokenHandler;
         }
 
         [HttpPost]
@@ -69,7 +71,7 @@ namespace Todolender.API.Controllers
             var user = await userRepository.AuthenticateUserAsync(loginRequest.Email, loginRequest.Password);
             if (user != null)
             {
-                return Ok(user); // this will need to be changed to JWT token later
+                return Ok(tokenHandler.CreateTokenAsync(user));
             }
 
             return BadRequest("Email or password is incorrect.");
