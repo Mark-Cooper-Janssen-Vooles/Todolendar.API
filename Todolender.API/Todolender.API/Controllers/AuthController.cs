@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO;
@@ -35,6 +36,7 @@ namespace Todolender.API.Controllers
         }
 
         [HttpPut]
+        [Authorize] // we only want the same user logged in to be able to update it
         [Route("user/{id:guid}")]
         public async Task<IActionResult> UpdateUserAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
         {

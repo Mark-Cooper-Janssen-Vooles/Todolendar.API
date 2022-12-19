@@ -90,3 +90,4 @@ C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\b
 C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\FluentValidation.dll
 C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\dev\01_learnings\02_todolender\Todolender.API\Todolender.API\Todolender.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
