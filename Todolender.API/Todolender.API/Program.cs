@@ -23,6 +23,7 @@ builder.Services.AddDbContext<TodolenderDbContext>(options =>
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IScheduledTodoRepository, ScheduledTodoRepository>();
 builder.Services.AddScoped<ITokenHandler, Todolender.API.Repositories.TokenHandler>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

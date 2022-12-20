@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO;
+using Todolender.API.Repositories;
 
 namespace Todolender.API.Controllers
 {
@@ -10,14 +11,17 @@ namespace Todolender.API.Controllers
     public class ScheduledTodoController
     {
         private readonly IMapper mapper;
+        private readonly IScheduledTodoRepository scheduledTodoRepository;
 
-        public ScheduledTodoController(IMapper mapper)
+        public ScheduledTodoController(IMapper mapper, IScheduledTodoRepository scheduledTodoRepository)
         {
             this.mapper = mapper;
+            this.scheduledTodoRepository = scheduledTodoRepository;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateScheduledTodoAsync(CreateScheduledTodoRequest createScheduledTodoRequest)
+        [Route("{id:guid}")]
+        public async Task<IActionResult> CreateScheduledTodoAsync(Guid userId, CreateScheduledTodoRequest createScheduledTodoRequest)
         {
             // validations 
 
@@ -25,6 +29,7 @@ namespace Todolender.API.Controllers
             var scheduledTodo = mapper.Map<ScheduledTodo>(createScheduledTodoRequest);
 
             // use repository to create and return scheduled todo domain model
+            scheduledTodo = await scheduledTodoRepository.CreateScheduledTodoAsync(userId, scheduledTodo);
 
             // map domain model to DTO 
 
