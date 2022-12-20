@@ -47,7 +47,14 @@ namespace Todolender.API.Controllers
         [Authorize(Policy = "user")]
         public async Task<IActionResult> UpdateScheduledTodoAsync([FromRoute] Guid userId, UpdateScheduledTodoRequest updateScheduledTodoRequest)
         {
+            // convert DTO to domain 
+            var scheduledTodo = mapper.Map<ScheduledTodo>(updateScheduledTodoRequest);
 
+            // use repository . note: need to update all fields etc. check them
+
+            // convert domain to DTO 
+
+            // send status back to client
         }
     }
 }
