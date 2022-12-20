@@ -51,6 +51,7 @@ namespace Todolender.API.Controllers
             var scheduledTodo = mapper.Map<ScheduledTodo>(updateScheduledTodoRequest);
 
             // use repository . note: need to update all fields etc. check them
+            scheduledTodo = scheduledTodoRepository.UpdateScheduledTodoAsync(userId, updateScheduledTodoRequest);
 
             // convert domain to DTO 
 
