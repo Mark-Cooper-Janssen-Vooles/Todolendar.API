@@ -11,6 +11,8 @@ namespace Todolender.API.Models.Profiles
             CreateMap<ScheduledTodo, ScheduledTodoDTO>().ReverseMap();
 
             CreateMap<ScheduledTodo, CreateScheduledTodoRequest>().ReverseMap();
+
+            CreateMap<ScheduledTodo, UpdateScheduledTodoRequest>().ReverseMap();
         }
     }
 }
