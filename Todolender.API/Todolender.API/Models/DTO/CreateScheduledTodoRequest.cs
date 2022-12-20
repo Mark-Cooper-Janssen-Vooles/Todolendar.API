@@ -9,5 +9,6 @@
         public string RecurFrequencyType { get; set; }
         public DateTime RecurEndDate { get; set; }
         public int NotifyBeforeTime { get; set; }
+        public DateTime ScheduledAt { get; set; }
     }
 }
