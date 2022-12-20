@@ -8,14 +8,11 @@ namespace Todolender.API.Models.Profiles
     {
         public UsersProfile()
         {
-            CreateMap<User, UserDTO>()
-                .ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
 
-            CreateMap<User, CreateUserRequest>()
-                .ReverseMap();
+            CreateMap<User, CreateUserRequest>().ReverseMap();
 
-            CreateMap<User, UpdateUserRequest>()
-                .ReverseMap();
+            CreateMap<User, UpdateUserRequest>().ReverseMap();
         }
     }
 }
