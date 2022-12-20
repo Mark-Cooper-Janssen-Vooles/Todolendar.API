@@ -26,7 +26,6 @@ namespace Todolender.API.Controllers
         [Authorize(Policy = "user")] // check this works?!
         public async Task<IActionResult> CreateScheduledTodoAsync([FromRoute] Guid userId, [FromBody] CreateScheduledTodoRequest createScheduledTodoRequest)
         {
-
             // map DTO to domain 
             var scheduledTodo = mapper.Map<ScheduledTodo>(createScheduledTodoRequest);
 

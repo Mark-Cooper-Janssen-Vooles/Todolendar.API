@@ -22,6 +22,12 @@ namespace Todolender.API.Repositories
             scheduledTodo.LastUpdatedAt = DateTime.UtcNow;
             scheduledTodo.TriggeredAt = null;
 
+            // add logic for scheduledTodoChild 
+            if (scheduledTodo.RecurCount > 0) 
+            {
+                // create scheduled todo children 
+            }
+
             await dbContext.ScheduledTodo.AddAsync(scheduledTodo);
             await dbContext.SaveChangesAsync();
 
