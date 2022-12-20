@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO;
@@ -20,10 +21,11 @@ namespace Todolender.API.Controllers
         }
 
         [HttpPost]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> CreateScheduledTodoAsync(Guid userId, CreateScheduledTodoRequest createScheduledTodoRequest)
+        [Route("{userId:guid}")]
+        [ActionName("CreateScheduledTodoAsync")]
+        [Authorize(Policy = "user")] // check this works?!
+        public async Task<IActionResult> CreateScheduledTodoAsync([FromRoute] Guid userId, [FromBody] CreateScheduledTodoRequest createScheduledTodoRequest)
         {
-            // validations 
 
             // map DTO to domain 
             var scheduledTodo = mapper.Map<ScheduledTodo>(createScheduledTodoRequest);
@@ -32,8 +34,10 @@ namespace Todolender.API.Controllers
             scheduledTodo = await scheduledTodoRepository.CreateScheduledTodoAsync(userId, scheduledTodo);
 
             // map domain model to DTO 
+            var scheduledTodoDTO = mapper.Map<ScheduledTodoDTO>(scheduledTodo);
 
             // return status to user with DTO
+            return new CreatedAtActionResult(nameof(CreateScheduledTodoAsync), "ScheduledTodo", new { id = scheduledTodo.Id }, scheduledTodoDTO);
 
             // put auth in 
         }

@@ -20,6 +20,7 @@ namespace Todolender.API.Repositories
             scheduledTodo.Active = scheduledTodo.ScheduledAt > DateTime.UtcNow; // need to check if this works with js vs c#. there are other options
             scheduledTodo.CreatedAt = DateTime.UtcNow;
             scheduledTodo.LastUpdatedAt = DateTime.UtcNow;
+            scheduledTodo.TriggeredAt = null;
 
             await dbContext.ScheduledTodo.AddAsync(scheduledTodo);
             await dbContext.SaveChangesAsync();

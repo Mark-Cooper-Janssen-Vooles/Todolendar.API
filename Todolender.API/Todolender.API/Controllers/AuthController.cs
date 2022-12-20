@@ -39,12 +39,12 @@ namespace Todolender.API.Controllers
 
         [HttpPut]
         [Authorize(Policy = "user")] // we only want the same user logged in to be able to update it
-        [Route("user/{id:guid}")]
-        public async Task<IActionResult> UpdateUserAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
+        [Route("user/{userId:guid}")]
+        public async Task<IActionResult> UpdateUserAsync([FromRoute] Guid userId, [FromBody] UpdateUserRequest updateUserRequest)
         {
             // TODO: Authenticated (this needs to be the correct user logged in to do this!
             var user = mapper.Map<User>(updateUserRequest);
-            user = await userRepository.UpdateUserAsync(id, user);
+            user = await userRepository.UpdateUserAsync(userId, user);
             if (user == null) return NotFound();
 
             var userDto = mapper.Map<UserDTO>(user);

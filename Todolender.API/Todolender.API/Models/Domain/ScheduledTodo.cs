@@ -15,6 +15,6 @@
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set;}
         public DateTime ScheduledAt { get; set; }
-        public DateTime TriggeredAt { get; set; }
+        public DateTime? TriggeredAt { get; set; }
     }
 }
