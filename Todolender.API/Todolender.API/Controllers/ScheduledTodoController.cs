@@ -39,6 +39,7 @@ namespace Todolender.API.Controllers
         public async Task<IActionResult> GetScheduledTodosAsync([FromRoute] Guid userId, DateRangeRequest dateRangeRequest)
         {
             var scheduledTodos = await scheduledTodoRepository.GetScheduledTodosAsync(userId, dateRangeRequest);
+
             return Ok(scheduledTodos);
         }
 
@@ -47,15 +48,11 @@ namespace Todolender.API.Controllers
         [Authorize(Policy = "user")]
         public async Task<IActionResult> UpdateScheduledTodoAsync([FromRoute] Guid userId, UpdateScheduledTodoRequest updateScheduledTodoRequest)
         {
-            // convert DTO to domain 
             var scheduledTodo = mapper.Map<ScheduledTodo>(updateScheduledTodoRequest);
+            scheduledTodo = await scheduledTodoRepository.UpdateScheduledTodoAsync(scheduledTodo);
+            var scheduledTodoDTO = mapper.Map<ScheduledTodoDTO>(scheduledTodo);
 
-            // use repository . note: need to update all fields etc. check them
-            scheduledTodo = scheduledTodoRepository.UpdateScheduledTodoAsync(userId, updateScheduledTodoRequest);
-
-            // convert domain to DTO 
-
-            // send status back to client
+            return Ok(scheduledTodoDTO);
         }
     }
 }
