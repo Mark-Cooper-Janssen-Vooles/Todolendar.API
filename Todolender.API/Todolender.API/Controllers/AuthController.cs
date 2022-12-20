@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
-using Todolender.API.Models.DTO;
-using Todolender.API.Repositories;
+using Todolender.API.Models.DTO.Auth;
+using Todolender.API.Repositories.Interfaces;
 
 namespace Todolender.API.Controllers
 {
