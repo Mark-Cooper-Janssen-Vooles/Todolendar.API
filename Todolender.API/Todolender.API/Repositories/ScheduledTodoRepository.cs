@@ -3,6 +3,7 @@ using System;
 using Todolender.API.Data;
 using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO.ScheduledTodo;
+using Todolender.API.Repositories.Interfaces;
 
 namespace Todolender.API.Repositories
 {

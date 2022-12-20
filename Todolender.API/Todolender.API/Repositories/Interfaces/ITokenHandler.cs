@@ -1,6 +1,6 @@
 ﻿using Todolender.API.Models.Domain;
 
-namespace Todolender.API.Repositories
+namespace Todolender.API.Repositories.Interfaces
 {
     public interface ITokenHandler
     {

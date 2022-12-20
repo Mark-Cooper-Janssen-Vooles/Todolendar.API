@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using Todolender.API.Data;
 using Todolender.API.Repositories;
+using Todolender.API.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +48,7 @@ builder.Services.AddDbContext<TodolenderDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IScheduledTodoRepository, ScheduledTodoRepository>();
+builder.Services.AddScoped<IPlanReminderRepository, PlanReminderRepository>();
 builder.Services.AddScoped<ITokenHandler, Todolender.API.Repositories.TokenHandler>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

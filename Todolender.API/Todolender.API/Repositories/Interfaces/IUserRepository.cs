@@ -1,7 +1,7 @@
 ﻿using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO;
 
-namespace Todolender.API.Repositories
+namespace Todolender.API.Repositories.Interfaces
 {
     public interface IUserRepository
     {
