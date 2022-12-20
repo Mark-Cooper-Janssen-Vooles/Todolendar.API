@@ -7,6 +7,8 @@ namespace Todolender.API.Validators
     {
         public UpdateScheduledTodoRequestValidator()
         {
+            RuleFor(x => x.Id).NotEmpty();
+            RuleFor(x => x.UserId).NotEmpty();
             RuleFor(x => x.Title).NotEmpty();
             RuleFor(x => x.Colour).NotEmpty();
             RuleFor(x => x.RecurCount).GreaterThanOrEqualTo(0);

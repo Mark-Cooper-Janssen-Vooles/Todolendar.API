@@ -46,12 +46,24 @@ namespace Todolender.API.Controllers
         [HttpPut]
         [Route("{userId:guid}")]
         [Authorize(Policy = "user")]
-        public async Task<IActionResult> UpdateScheduledTodoAsync([FromRoute] Guid userId, UpdateScheduledTodoRequest updateScheduledTodoRequest)
+        public async Task<IActionResult> UpdateScheduledTodoAsync(UpdateScheduledTodoRequest updateScheduledTodoRequest)
         {
             var scheduledTodo = mapper.Map<ScheduledTodo>(updateScheduledTodoRequest);
             scheduledTodo = await scheduledTodoRepository.UpdateScheduledTodoAsync(scheduledTodo);
             var scheduledTodoDTO = mapper.Map<ScheduledTodoDTO>(scheduledTodo);
 
+            return Ok(scheduledTodoDTO);
+        }
+
+        [HttpDelete]
+        [Route("{userId:guid}/{scheduledTodoId:guid}")]
+        [Authorize(Policy = "user")]
+        public async Task<IActionResult> DeleteScheduledTodoAsync([FromRoute] Guid scheduledTodoId)
+        {
+            var scheduledTodo = await scheduledTodoRepository.DeleteScheduledTodoAsync(scheduledTodoId);
+            if (scheduledTodo == null) return NotFound();
+
+            var scheduledTodoDTO = mapper.Map<ScheduledTodoDTO>(scheduledTodo);
             return Ok(scheduledTodoDTO);
         }
     }

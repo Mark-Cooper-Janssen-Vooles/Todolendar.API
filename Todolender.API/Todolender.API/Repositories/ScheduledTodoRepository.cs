@@ -40,6 +40,17 @@ namespace Todolender.API.Repositories
             return scheduledTodo;
         }
 
+        public async Task<ScheduledTodo> DeleteScheduledTodoAsync(Guid scheduledTodoId)
+        {
+            var scheduledTodo = await dbContext.ScheduledTodo.FirstOrDefaultAsync(x => x.Id == scheduledTodoId);
+            if (scheduledTodo == null) return null;
+
+            dbContext.ScheduledTodo.Remove(scheduledTodo);
+            await dbContext.SaveChangesAsync();
+
+            return scheduledTodo;
+        }
+
         public async Task<IEnumerable<ScheduledTodo>> GetScheduledTodosAsync(Guid userId, DateRangeRequest dateRangeRequest)
         {
             var scheduledTodos = await dbContext.ScheduledTodo
