@@ -32,5 +32,20 @@ namespace Todolender.API.Repositories
 
             return planReminder;
         }
+
+        public async Task<PlanReminder> UpdatePlanReminderAsync(Guid userId, PlanReminder updatedPlanReminder)
+        {
+            var existingPlanReminder = await dbContext.PlanReminder.FirstOrDefaultAsync(x => x.UserId == userId);
+            if (existingPlanReminder == null) return null;
+
+            existingPlanReminder.PlanReminderOn = updatedPlanReminder.PlanReminderOn;
+            existingPlanReminder.Frequency = updatedPlanReminder.Frequency;
+            existingPlanReminder.NextScheduledAt = updatedPlanReminder.NextScheduledAt;
+            existingPlanReminder.Description = updatedPlanReminder.Description;
+
+            await dbContext.SaveChangesAsync();
+
+            return existingPlanReminder;
+        }
     }
 }

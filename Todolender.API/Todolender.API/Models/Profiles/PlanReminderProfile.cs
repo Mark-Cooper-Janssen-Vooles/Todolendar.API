@@ -10,7 +10,7 @@ namespace Todolender.API.Models.Profiles
         {
             CreateMap<PlanReminder, PlanReminderDTO>().ReverseMap();
 
-            CreateMap<PlanReminder, UpdatePlanReminderRequest>().ReverseMap();
+            CreateMap<PlanReminder, UpdatedPlanReminderRequest>().ReverseMap();
         }
     }
 }

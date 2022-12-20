@@ -4,7 +4,7 @@ using Todolender.API.Models.DTO.PlanReminder;
 
 namespace Todolender.API.Validators
 {
-    public class UpdatePlanReminderRequestValidator : AbstractValidator<UpdatePlanReminderRequest>
+    public class UpdatePlanReminderRequestValidator : AbstractValidator<UpdatedPlanReminderRequest>
     {
         public UpdatePlanReminderRequestValidator()
         {

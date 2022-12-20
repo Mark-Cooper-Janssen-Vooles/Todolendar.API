@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration.UserSecrets;
-using Todolender.API.Models.DTO;
+using Todolender.API.Models.Domain;
+using Todolender.API.Models.DTO.PlanReminder;
 using Todolender.API.Repositories.Interfaces;
 
 namespace Todolender.API.Controllers
@@ -35,17 +37,19 @@ namespace Todolender.API.Controllers
         [HttpPut]
         [Route("{userId:guid}")]
         [Authorize(Policy = "user")]
-        public async Task<IActionResult> UpdatePlanReminderAsync([FromRoute] Guid userId, [FromBody] UpdatePlanReminderRequest updatePlanReminderRequest)
+        public async Task<IActionResult> UpdatePlanReminderAsync([FromRoute] Guid userId, [FromBody] UpdatedPlanReminderRequest updatePlanReminderRequest)
         {
-            // validation
-
-            // mapper from dto to domain
+            var planReminder = mapper.Map<PlanReminder>(updatePlanReminderRequest);
 
             // talk to repository 
+            planReminder = await planReminderRepository.UpdatePlanReminderAsync(userId, planReminder);
+            if (planReminder == null) return NotFound();
 
             // mapper from domain to dto 
+            var planReminderDTO = mapper.Map<PlanReminderDTO>(planReminder);
 
             // send response to user 
+            return Ok(planReminderDTO);
         }
     }
 }
