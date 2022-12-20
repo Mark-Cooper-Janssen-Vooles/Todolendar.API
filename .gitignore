@@ -475,3 +475,20 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# .NET
+**/bin
+**/obj
+
+# JetBrains IDEs
+.idea
+*.DotSettings.user
+
+# Visual Studio
+**/.vs/
+
+# Visual Studio Code
+.vscode
+
+# Miscellaneous
+.DS_Store

@@ -48,10 +48,7 @@ builder.Services.AddAuthorization(options =>
         policy.RequireAssertion(context =>
         {
             var claimUserId = context?.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.UserData)?.Value.ToLower();
-
-            // /api/v1/mailbox/email@example.com/inbox/messages/list
             var httpContextUserId = new HttpContextAccessor().HttpContext.Request.RouteValues["id"]?.ToString().ToLower();
-
             if (claimUserId == null || httpContextUserId == null) return false;
 
             return claimUserId == httpContextUserId;
