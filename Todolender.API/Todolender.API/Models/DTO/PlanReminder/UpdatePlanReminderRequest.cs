@@ -1,8 +1,7 @@
-﻿namespace Todolender.API.Models.DTO
+﻿namespace Todolender.API.Models.DTO.PlanReminder
 {
-    public class PlanReminderDTO
+    public class UpdatePlanReminderRequest
     {
-        public Guid UserId { get; set; }
         public bool PlanReminderOn { get; set; }
         public string? Frequency { get; set; }
         public DateTime? NextScheduledAt { get; set; }
