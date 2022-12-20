@@ -50,5 +50,37 @@ namespace Todolender.API.Repositories
 
             return scheduledTodos;
         }
+
+        public async Task<ScheduledTodo> UpdateScheduledTodoAsync(ScheduledTodo updatedScheduledTodo)
+        {
+            var existingScheduledTodo = await dbContext.ScheduledTodo.FirstOrDefaultAsync(x => x.Id == updatedScheduledTodo.Id);
+            if (existingScheduledTodo == null) return null;
+
+            existingScheduledTodo.Title = updatedScheduledTodo.Title;
+            existingScheduledTodo.Description = updatedScheduledTodo.Description;
+            existingScheduledTodo.Colour= updatedScheduledTodo.Colour;
+            existingScheduledTodo.RecurCount= updatedScheduledTodo.RecurCount;
+            existingScheduledTodo.RecurFrequencyType= updatedScheduledTodo.RecurFrequencyType;
+            existingScheduledTodo.RecurEndDate= updatedScheduledTodo.RecurEndDate;
+            existingScheduledTodo.NotifyBeforeTime= updatedScheduledTodo.NotifyBeforeTime;
+            existingScheduledTodo.ScheduledAt= updatedScheduledTodo.ScheduledAt;
+            existingScheduledTodo.LastUpdatedAt = DateTime.UtcNow;
+
+
+            // TODO: if recurCount went from 0 to more, need to put in logic to create ScheduledTodoChildren 
+            if (updatedScheduledTodo.RecurCount > 0)
+            {
+                // take scheduled at time (this todo) 
+                // look at recurFrequency time (i.e. weekly or daily)
+                // create ScheduledTodoChildren based on 
+
+                // create scheduled todo children => need to iterate through to make them all. 
+            }
+
+            // TODO: and vice-versa, delete scheduledTodoChildren if recurCount reduced in number. 
+
+            await dbContext.SaveChangesAsync();
+            return existingScheduledTodo;
+        }
     }
 }
