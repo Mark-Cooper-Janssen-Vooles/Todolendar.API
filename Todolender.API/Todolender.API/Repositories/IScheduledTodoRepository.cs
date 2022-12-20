@@ -6,6 +6,6 @@ namespace Todolender.API.Repositories
     public interface IScheduledTodoRepository
     {
         Task<ScheduledTodo> CreateScheduledTodoAsync(Guid userId, ScheduledTodo scheduledTodo);
-        Task<IEnumerable<ScheduledTodo>> GetScheduledTodosAsync(DateRangeRequest dateRangeRequest);
+        Task<IEnumerable<ScheduledTodo>> GetScheduledTodosAsync(Guid userId, DateRangeRequest dateRangeRequest);
     }
 }

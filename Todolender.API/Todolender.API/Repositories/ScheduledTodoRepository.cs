@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using Todolender.API.Data;
 using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO;
@@ -39,9 +40,15 @@ namespace Todolender.API.Repositories
             return scheduledTodo;
         }
 
-        public async Task<IEnumerable<ScheduledTodo>> GetScheduledTodosAsync(DateRangeRequest dateRangeRequest)
+        public async Task<IEnumerable<ScheduledTodo>> GetScheduledTodosAsync(Guid userId, DateRangeRequest dateRangeRequest)
         {
-            throw new NotImplementedException();
+            var scheduledTodos = await dbContext.ScheduledTodo
+                .Where(x => 
+                (x.UserId == userId) && // needs correct userId
+                (x.ScheduledAt >= dateRangeRequest.StartDate && x.ScheduledAt <= dateRangeRequest.EndDate)) // only between a certain date range
+                .ToListAsync();
+
+            return scheduledTodos;
         }
     }
 }

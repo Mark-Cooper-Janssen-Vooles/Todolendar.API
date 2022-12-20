@@ -37,7 +37,7 @@ namespace Todolender.API.Repositories
                 config["Jwt:Issuer"],
                 config["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(15), // 15 minutes till expiry
+                expires: DateTime.Now.AddMinutes(720), // 720 (12hrs) minutes till expiry
                 signingCredentials: credentials);
 
             return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));

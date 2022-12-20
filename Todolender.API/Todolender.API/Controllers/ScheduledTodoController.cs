@@ -9,7 +9,7 @@ namespace Todolender.API.Controllers
 {
     [ApiController]
     [Route("ScheduledTodo")]
-    public class ScheduledTodoController
+    public class ScheduledTodoController : Controller
     {
         private readonly IMapper mapper;
         private readonly IScheduledTodoRepository scheduledTodoRepository;
@@ -23,22 +23,31 @@ namespace Todolender.API.Controllers
         [HttpPost]
         [Route("{userId:guid}")]
         [ActionName("CreateScheduledTodoAsync")]
-        [Authorize(Policy = "user")] // check this works?!
+        [Authorize(Policy = "user")]
         public async Task<IActionResult> CreateScheduledTodoAsync([FromRoute] Guid userId, [FromBody] CreateScheduledTodoRequest createScheduledTodoRequest)
         {
-            // map DTO to domain 
             var scheduledTodo = mapper.Map<ScheduledTodo>(createScheduledTodoRequest);
-
-            // use repository to create and return scheduled todo domain model
             scheduledTodo = await scheduledTodoRepository.CreateScheduledTodoAsync(userId, scheduledTodo);
-
-            // map domain model to DTO 
             var scheduledTodoDTO = mapper.Map<ScheduledTodoDTO>(scheduledTodo);
 
-            // return status to user with DTO
             return new CreatedAtActionResult(nameof(CreateScheduledTodoAsync), "ScheduledTodo", new { id = scheduledTodo.Id }, scheduledTodoDTO);
+        }
 
-            // put auth in 
+        [HttpGet]
+        [Route("{userId:guid}")]
+        [Authorize(Policy = "user")]
+        public async Task<IActionResult> GetScheduledTodosAsync([FromRoute] Guid userId, DateRangeRequest dateRangeRequest)
+        {
+            var scheduledTodos = await scheduledTodoRepository.GetScheduledTodosAsync(userId, dateRangeRequest);
+            return Ok(scheduledTodos);
+        }
+
+        [HttpPut]
+        [Route("{userId:guid}")]
+        [Authorize(Policy = "user")]
+        public async Task<IActionResult> UpdateScheduledTodoAsync([FromRoute] Guid userId, UpdateScheduledTodoRequest updateScheduledTodoRequest)
+        {
+
         }
     }
 }
