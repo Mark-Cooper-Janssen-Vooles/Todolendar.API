@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.DTO;
+using Todolender.API.Repositories.Interfaces;
 
 namespace Todolender.API.Controllers
 {
@@ -11,10 +12,12 @@ namespace Todolender.API.Controllers
     public class PlanReminderController : ControllerBase
     {
         private readonly IMapper mapper;
+        private readonly IPlanReminderRepository planReminderRepository;
 
-        public PlanReminderController(IMapper mapper)
+        public PlanReminderController(IMapper mapper, IPlanReminderRepository planReminderRepository)
         {
             this.mapper = mapper;
+            this.planReminderRepository = planReminderRepository;
         }
 
         [HttpGet]
@@ -23,7 +26,7 @@ namespace Todolender.API.Controllers
         public async Task<IActionResult> GetPlanReminderAsync([FromRoute] Guid userId)
         {
             // talk to repository 
-            var planReminder = await planReminderRepository.GetAsync(userId); // if it doesn't exist, create one for them! 
+            var planReminder = await planReminderRepository.GetPlanReminderAsync(userId); // if it doesn't exist, create one for them! 
             // convert to DTO
             var planReminderDTO = mapper.Map<PlanReminderDTO>(planReminder);
 
