@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Todolender.API.Models.DTO;
+using Todolender.API.Models.DTO.ScheduledTodo;
 
 namespace Todolender.API.Validators
 {

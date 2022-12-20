@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Todolender.API.Models.Domain;
-using Todolender.API.Models.DTO;
+using Todolender.API.Models.DTO.Auth;
 
 namespace Todolender.API.Models.Profiles
 {

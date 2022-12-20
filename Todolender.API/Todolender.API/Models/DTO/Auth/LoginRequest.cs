@@ -1,4 +1,4 @@
-﻿namespace Todolender.API.Models.DTO
+﻿namespace Todolender.API.Models.DTO.Auth
 {
     public class LoginRequest
     {
