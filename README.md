@@ -20,3 +20,7 @@ This project uses dependency injection and the repository pattern. It is an atte
 https://www.codeguru.com/csharp/understanding-onion-architecture/
 
 The domain layer can be found in the Models folder, while the repository layer can be found in the repositories folder and the services layer can be found in the controllers folder. 
+
+### Running Locally 
+
+If testing the endpoint via swagger, you will need to first create a user and then login. The login endpoint will give you a bearer you must authenticate with to use the other endpoints. 
