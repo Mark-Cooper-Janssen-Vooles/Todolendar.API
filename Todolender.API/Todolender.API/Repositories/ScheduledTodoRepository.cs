@@ -1,6 +1,7 @@
 ﻿using System;
 using Todolender.API.Data;
 using Todolender.API.Models.Domain;
+using Todolender.API.Models.DTO;
 
 namespace Todolender.API.Repositories
 {
@@ -36,6 +37,11 @@ namespace Todolender.API.Repositories
             await dbContext.SaveChangesAsync();
 
             return scheduledTodo;
+        }
+
+        public async Task<IEnumerable<ScheduledTodo>> GetScheduledTodosAsync(DateRangeRequest dateRangeRequest)
+        {
+            throw new NotImplementedException();
         }
     }
 }
