@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Todolender.API.Models.DTO;
 
 namespace Todolender.API.Controllers
 {
@@ -24,7 +25,7 @@ namespace Todolender.API.Controllers
             // talk to repository 
             var planReminder = await planReminderRepository.GetAsync(userId); // if it doesn't exist, create one for them! 
             // convert to DTO
-            var planReminderDTO = mapper.Map<planReminderDTO>(planReminder);
+            var planReminderDTO = mapper.Map<PlanReminderDTO>(planReminder);
 
             return Ok(planReminderDTO);
         }
