@@ -47,12 +47,16 @@ namespace Todolender.API.Controllers
             return new CreatedAtActionResult(nameof(CreateTodoAsync), "Todo", new { id = todo.Id }, todoDTO);
         }
 
-        //[HttpPut]
-        //[Route("{userId:guid}")]
-        //[Authorize(Policy = "user")]
-        //public async Task<IActionResult> UpdateTodoAsync([FromRoute] Guid userId, [FromBody] UpdateTodoRequest updateTodoRequest)
-        //{
+        [HttpPut]
+        [Route("{userId:guid}/{todoId:guid}")]
+        [Authorize(Policy = "user")]
+        public async Task<IActionResult> UpdateTodoAsync([FromRoute] Guid todoId, [FromBody] UpdateTodoRequest updateTodoRequest)
+        {
+            var todo = mapper.Map<Todo>(updateTodoRequest);
+            todo = await todoRepository.UpateTodoAsync(todoId, todo);
+            var todoDTO = mapper.Map<TodoDTO>(todo);
 
-        //}
+            return Ok(todoDTO);
+        }
     }
 }
