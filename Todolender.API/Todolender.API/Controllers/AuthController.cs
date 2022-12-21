@@ -23,7 +23,7 @@ namespace Todolender.API.Controllers
         }
 
         [HttpPost]
-        [Route("user")]
+        [Route("CreateUser")]
         [ActionName("CreateUserAsync")]
         public async Task<IActionResult> CreateUserAsync(CreateUserRequest createUserRequest)
         {
