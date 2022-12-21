@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO.ScheduledTodo;
-using Todolender.API.Repositories.Interfaces;
+using Todolender.API.Repositories;
 
 namespace Todolender.API.Controllers
 {
@@ -36,7 +36,7 @@ namespace Todolender.API.Controllers
         [HttpGet]
         [Route("{userId:guid}")]
         [Authorize(Policy = "user")]
-        public async Task<IActionResult> GetScheduledTodosAsync([FromRoute] Guid userId, DateRangeRequest dateRangeRequest)
+        public async Task<IActionResult> GetScheduledTodosAsync([FromRoute] Guid userId, DateRangeRequest dateRangeRequest) // note: shouldn't send body to GET requests
         {
             var scheduledTodos = await scheduledTodoRepository.GetScheduledTodosAsync(userId, dateRangeRequest);
 
