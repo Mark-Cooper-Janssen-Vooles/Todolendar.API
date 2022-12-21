@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
-using Todolender.API.Models.DTO.ScheduledTodo;
+using Todolender.API.Models.DTO.Todo;
 using Todolender.API.Repositories;
+using Todolender.API.Repositories.Interfaces;
 
 namespace Todolender.API.Controllers
 {
@@ -13,10 +14,12 @@ namespace Todolender.API.Controllers
     public class TodoController : ControllerBase
     {
         private readonly IMapper mapper;
+        private readonly ITodoRepository todoRepository;
 
-        public TodoController(IMapper mapper)
+        public TodoController(IMapper mapper, ITodoRepository todoRepository)
         {
             this.mapper = mapper;
+            this.todoRepository = todoRepository;
         }
 
         [HttpPost]
@@ -25,7 +28,7 @@ namespace Todolender.API.Controllers
         [Authorize(Policy = "user")]
         public async Task<IActionResult> CreateTodoAsync([FromRoute] Guid userId, [FromBody] CreateTodoRequest createTodoRequest)
         {
-            var todo = mapper.Map<Todo>(createTodoRequest);
+            var todo = mapper.Map<Todo>(createTodoRequest); 
             todo = await todoRepository.CreateTodoAsync(todo);
             var todoDTO = mapper.Map<TodoDTO>(todo);
 
