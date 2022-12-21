@@ -11,6 +11,7 @@ namespace Todolender.API.Models.Profiles
         public TodoProfile()
         {
             CreateMap<Todo, CreateTodoRequest>().ReverseMap();
+            CreateMap<Todo, TodoDTO>().ReverseMap();
         }
     }
 }
