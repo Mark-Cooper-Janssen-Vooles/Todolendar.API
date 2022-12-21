@@ -9,8 +9,8 @@ using Todolender.API.Repositories.Interfaces;
 
 namespace Todolender.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("Todo")]
     public class TodoController : ControllerBase
     {
         private readonly IMapper mapper;
