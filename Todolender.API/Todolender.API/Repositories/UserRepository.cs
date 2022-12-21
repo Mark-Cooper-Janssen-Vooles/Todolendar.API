@@ -22,10 +22,7 @@ namespace Todolender.API.Repositories
             var user = await dbContext.Users.FirstOrDefaultAsync( 
                 x => x.Email.ToLower() == email.ToLower() &&
                 x.PasswordHash == password.ToLower());
-
-            if (user == null) {
-                return null;
-            }
+            if (user == null) return null;
 
             user.PasswordHash = null;
             return user;
@@ -45,10 +42,7 @@ namespace Todolender.API.Repositories
         public async Task<User> DeleteUserAsync(Guid id)
         {
             var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
-            if (user == null)
-            {
-                return null;
-            }
+            if (user == null) return null;
 
             dbContext.Users.Remove(user);
             await dbContext.SaveChangesAsync();
@@ -59,10 +53,7 @@ namespace Todolender.API.Repositories
         public async Task<User> UpdateUserAsync(Guid id, User updatedUser)
         {
             var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
-            if (existingUser == null)
-            {
-                return null;
-            }
+            if (existingUser == null) return null;
 
             existingUser.Email = updatedUser.Email;
             existingUser.PasswordHash = updatedUser.PasswordHash;
