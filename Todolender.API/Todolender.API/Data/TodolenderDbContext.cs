@@ -12,6 +12,5 @@ namespace Todolender.API.Data
         public DbSet<ScheduledTodo> ScheduledTodo { get; set; }
         public DbSet<ScheduledTodoChild> ScheduledTodoChild { get; set;}
         public DbSet<Todo> Todos { get; set; }
-        public DbSet<TodoList> TodosList { get; set;}
     }
 }
