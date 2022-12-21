@@ -12,17 +12,24 @@ namespace Todolender.API.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        //[HttpPost]
-        //[Route("{userId:guid}")]
-        //[ActionName("CreateTodoAsync")]
-        //[Authorize(Policy = "user")]
-        //public async Task<IActionResult> CreateTodoAsync([FromRoute] Guid userId, [FromBody] CreateTodoRequest createTodoRequest)
-        //{
-        //    var todo = mapper.Map<STodo>(createTodoRequest);
-        //    todo = await todoRepository.CreateTodoAsync(userId, todo);
-        //    var todoDTO = mapper.Map<TodoDTO>(todo);
+        private readonly IMapper mapper;
 
-        //    return new CreatedAtActionResult(nameof(CreateTodoAsync), "Todo", new { id = todo.Id }, todoDTO);
-        //}
+        public TodoController(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        [HttpPost]
+        [Route("{userId:guid}")]
+        [ActionName("CreateTodoAsync")]
+        [Authorize(Policy = "user")]
+        public async Task<IActionResult> CreateTodoAsync([FromRoute] Guid userId, [FromBody] CreateTodoRequest createTodoRequest)
+        {
+            var todo = mapper.Map<Todo>(createTodoRequest);
+            todo = await todoRepository.CreateTodoAsync(todo);
+            var todoDTO = mapper.Map<TodoDTO>(todo);
+
+            return new CreatedAtActionResult(nameof(CreateTodoAsync), "Todo", new { id = todo.Id }, todoDTO);
+        }
     }
 }

@@ -4,6 +4,6 @@ namespace Todolender.API.Repositories.Interfaces
 {
     public interface ITodoRepository
     {
-        Task<Todo> CreateTodoAsync(Guid userId, Todo todo);
+        Task<Todo> CreateTodoAsync(Todo todo);
     }
 }
