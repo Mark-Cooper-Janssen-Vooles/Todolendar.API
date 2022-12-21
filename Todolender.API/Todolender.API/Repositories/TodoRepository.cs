@@ -23,6 +23,17 @@ namespace Todolender.API.Repositories
             return todo;
         }
 
+        public async Task<Todo> DeleteTodoAsync(Guid todoId)
+        {
+            var todo = await dbContext.Todos.FirstOrDefaultAsync(x => x.Id == todoId);
+            if (todo == null) return null;
+
+            dbContext.Todos.Remove(todo);
+            await dbContext.SaveChangesAsync();
+
+            return todo;
+        }
+
         public async Task<IEnumerable<Todo>> GetTodosAsync(Guid userId)
         {
             var todos = await dbContext.Todos.Where(x => x.UserId == userId).ToListAsync();
