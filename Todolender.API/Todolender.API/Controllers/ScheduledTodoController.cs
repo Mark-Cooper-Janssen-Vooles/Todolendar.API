@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
 using Todolender.API.Models.DTO.ScheduledTodo;
-using Todolender.API.Repositories;
+using Todolender.API.Repositories.Interfaces;
 
 namespace Todolender.API.Controllers
 {
