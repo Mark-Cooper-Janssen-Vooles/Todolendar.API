@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Todolender.API.Data;
 
@@ -11,9 +12,11 @@ using Todolender.API.Data;
 namespace Todolender.API.Migrations
 {
     [DbContext(typeof(TodolenderDbContext))]
-    partial class TodolenderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221221012034_changetodlistid to userid")]
+    partial class changetodlistidtouserid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
