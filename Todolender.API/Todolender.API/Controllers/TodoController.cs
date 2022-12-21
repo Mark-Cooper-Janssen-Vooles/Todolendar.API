@@ -25,9 +25,9 @@ namespace Todolender.API.Controllers
         [HttpGet]
         [Route("{userId:guid}")]
         [Authorize(Policy = "user")]
-        public async Task<IActionResult> GetAllTodosAsync([FromRoute] Guid userId)
+        public async Task<IActionResult> GetTodosAsync([FromRoute] Guid userId)
         {
-            var todos = await todoRepository.GetAllTodosAsync(userId);
+            var todos = await todoRepository.GetTodosAsync(userId);
 
             return Ok(todos);
         }
