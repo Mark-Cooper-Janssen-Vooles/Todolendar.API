@@ -54,6 +54,19 @@ namespace Todolender.API.Controllers
         {
             var todo = mapper.Map<Todo>(updateTodoRequest);
             todo = await todoRepository.UpateTodoAsync(todoId, todo);
+            if (todo == null) return NotFound();
+            var todoDTO = mapper.Map<TodoDTO>(todo);
+
+            return Ok(todoDTO);
+        }
+
+        [HttpDelete]
+        [Route("{userId:guid}/{todoId:guid}")]
+        [Authorize(Policy = "user")]
+        public async Task<IActionResult> DeleteTodoAsync([FromRoute] Guid todoId)
+        {
+            var todo = await todoRepository.DeleteTodoAsync(todoId);
+            if (todo == null) return NotFound();
             var todoDTO = mapper.Map<TodoDTO>(todo);
 
             return Ok(todoDTO);
