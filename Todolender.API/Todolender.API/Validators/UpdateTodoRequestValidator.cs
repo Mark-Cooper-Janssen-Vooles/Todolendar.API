@@ -7,8 +7,6 @@ namespace Todolender.API.Validators
     {
         public UpdateTodoRequestValidator()
         {
-            RuleFor(x => x.Id).NotEmpty();
-            RuleFor(x => x.UserId).NotEmpty();
             RuleFor(x => x.Title).NotEmpty().MinimumLength(4).MaximumLength(25);
         }
     }
