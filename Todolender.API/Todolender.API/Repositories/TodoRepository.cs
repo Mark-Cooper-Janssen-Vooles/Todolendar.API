@@ -29,5 +29,18 @@ namespace Todolender.API.Repositories
 
             return todos;
         }
+
+        public async Task<Todo> UpateTodoAsync(Guid todoId, Todo todo)
+        {
+            var existingTodo = await dbContext.Todos.FirstOrDefaultAsync(x => x.Id == todoId);
+            if (existingTodo == null) return null;
+
+            existingTodo.Title = todo.Title;
+            existingTodo.Description = todo.Description;
+
+            await dbContext.SaveChangesAsync();
+
+            return existingTodo;
+        }
     }
 }
