@@ -7,5 +7,6 @@ namespace Todolender.API.Repositories.Interfaces
         Task<IEnumerable<Todo>> GetTodosAsync(Guid userId);
         Task<Todo> CreateTodoAsync(Todo todo);
         Task<Todo> UpateTodoAsync(Guid todoId, Todo todo);
+        Task<Todo> DeleteTodoAsync(Guid todoId);
     }
 }
