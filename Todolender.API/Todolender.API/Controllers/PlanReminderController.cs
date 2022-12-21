@@ -40,15 +40,10 @@ namespace Todolender.API.Controllers
         public async Task<IActionResult> UpdatePlanReminderAsync([FromRoute] Guid userId, [FromBody] UpdatedPlanReminderRequest updatePlanReminderRequest)
         {
             var planReminder = mapper.Map<PlanReminder>(updatePlanReminderRequest);
-
-            // talk to repository 
             planReminder = await planReminderRepository.UpdatePlanReminderAsync(userId, planReminder);
             if (planReminder == null) return NotFound();
-
-            // mapper from domain to dto 
             var planReminderDTO = mapper.Map<PlanReminderDTO>(planReminder);
 
-            // send response to user 
             return Ok(planReminderDTO);
         }
     }
