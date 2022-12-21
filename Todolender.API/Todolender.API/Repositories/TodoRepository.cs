@@ -22,5 +22,12 @@ namespace Todolender.API.Repositories
 
             return todo;
         }
+
+        public async Task<IEnumerable<Todo>> GetTodosAsync(Guid userId)
+        {
+            var todos = await dbContext.Todos.Where(x => x.UserId == userId).ToListAsync();
+
+            return todos;
+        }
     }
 }
