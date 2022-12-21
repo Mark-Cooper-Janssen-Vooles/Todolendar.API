@@ -10,7 +10,7 @@ using Todolender.API.Repositories.Interfaces;
 namespace Todolender.API.Controllers
 {
     [ApiController]
-    [Route("Todo")]
+    // [Route("{userId:guid}/Todo")]
     public class TodoController : ControllerBase
     {
         private readonly IMapper mapper;
@@ -23,7 +23,7 @@ namespace Todolender.API.Controllers
         }
 
         [HttpGet]
-        [Route("{userId:guid}")]
+        [Route("{userId:guid}/todo")]
         [Authorize(Policy = "user")]
         public async Task<IActionResult> GetTodosAsync([FromRoute] Guid userId)
         {
@@ -44,5 +44,9 @@ namespace Todolender.API.Controllers
 
             return new CreatedAtActionResult(nameof(CreateTodoAsync), "Todo", new { id = todo.Id }, todoDTO);
         }
+
+        //[HttpPut]
+        //[Route("{userId:guid}")]
+        //[Authorize(Policy = "user")]
     }
 }
