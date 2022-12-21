@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Todolender.API.Models.Domain;
+using Todolender.API.Models.DTO.ScheduledTodo;
 using Todolender.API.Models.DTO.Todo;
 using Todolender.API.Repositories;
 using Todolender.API.Repositories.Interfaces;
@@ -10,7 +11,7 @@ using Todolender.API.Repositories.Interfaces;
 namespace Todolender.API.Controllers
 {
     [ApiController]
-    // [Route("{userId:guid}/Todo")]
+    [Route("Todo")]
     public class TodoController : ControllerBase
     {
         private readonly IMapper mapper;
@@ -23,20 +24,21 @@ namespace Todolender.API.Controllers
         }
 
         [HttpGet]
-        [Route("{userId:guid}/todo")]
+        [Route("{userId:guid}")]
         [Authorize(Policy = "user")]
         public async Task<IActionResult> GetTodosAsync([FromRoute] Guid userId)
         {
             var todos = await todoRepository.GetTodosAsync(userId);
+            var todosDTO = mapper.Map<IEnumerable<TodoDTO>>(todos);
 
-            return Ok(todos);
+            return Ok(todosDTO);
         }
 
         [HttpPost]
         [Route("{userId:guid}")]
         [ActionName("CreateTodoAsync")]
         [Authorize(Policy = "user")]
-        public async Task<IActionResult> CreateTodoAsync([FromRoute] Guid userId, [FromBody] CreateTodoRequest createTodoRequest)
+        public async Task<IActionResult> CreateTodoAsync([FromBody] CreateTodoRequest createTodoRequest)
         {
             var todo = mapper.Map<Todo>(createTodoRequest); 
             todo = await todoRepository.CreateTodoAsync(todo);
@@ -48,5 +50,9 @@ namespace Todolender.API.Controllers
         //[HttpPut]
         //[Route("{userId:guid}")]
         //[Authorize(Policy = "user")]
+        //public async Task<IActionResult> UpdateTodoAsync([FromRoute] Guid userId, [FromBody] UpdateTodoRequest updateTodoRequest)
+        //{
+
+        //}
     }
 }
