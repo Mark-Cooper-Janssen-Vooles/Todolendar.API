@@ -50,6 +50,14 @@ namespace Todolender.API.Repositories
             return user;
         }
 
+        public async Task<User> GetUserAsync(Guid id)
+        {
+            var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (existingUser == null) return null;
+
+            return existingUser;
+        }
+
         public async Task<User> UpdateUserAsync(Guid id, User updatedUser)
         {
             var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);

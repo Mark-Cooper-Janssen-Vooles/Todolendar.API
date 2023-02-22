@@ -21,6 +21,23 @@ namespace Todolender.API.Controllers
             this.mapper = mapper;
             this.tokenHandler = tokenHandler;
         }
+        
+        [HttpGet]
+        [Authorize(Policy = "user")] // we only want the same user logged in to be able to see their info
+        [Route("user/{userId:guid}")]
+        public async Task<IActionResult> GetUserAsync([FromRoute] Guid userId)
+        {
+            // use repository to get user object 
+            // map it to userDTO 
+            var user = await userRepository.GetUserAsync(userId);
+            if (user == null) return NotFound();
+            // return to user 
+
+            var userDto = mapper.Map<UserDTO>(user);
+
+            return Ok(userDto);
+        }
+        
 
         [HttpPost]
         [Route("CreateUser")]
@@ -71,7 +88,7 @@ namespace Todolender.API.Controllers
             var user = await userRepository.AuthenticateUserAsync(loginRequest.Email, loginRequest.Password);
             if (user != null)
             {
-                return Ok(tokenHandler.CreateTokenAsync(user));
+                return Ok(new { CreateTokenAsync = tokenHandler.CreateTokenAsync(user), user.Id});
             }
 
             return BadRequest("Email or password is incorrect.");
