@@ -55,8 +55,8 @@ namespace Todolender.API.Controllers
         }
 
         [HttpPut]
-        [Authorize(Policy = "user")] // we only want the same user logged in to be able to update it
         [Route("user/{userId:guid}")]
+        [Authorize(Policy = "user")] // we only want the same user logged in to be able to update it
         public async Task<IActionResult> UpdateUserAsync([FromRoute] Guid userId, [FromBody] UpdateUserRequest updateUserRequest)
         {
             // TODO: Authenticated (this needs to be the correct user logged in to do this!
