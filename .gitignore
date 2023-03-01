@@ -480,6 +480,16 @@ $RECYCLE.BIN/
 **/bin
 **/obj
 
+**/obj/Debug/net6.0/**
+
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj/Debug
+*/**/obj/Release
+
+bin/
+obj/
+
 # JetBrains IDEs
 .idea
 *.DotSettings.user
