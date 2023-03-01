@@ -86,8 +86,8 @@ builder.Services.AddAuthorization(options =>
     {
         policy.RequireAssertion(context =>
         {
-            var claimUserId = context?.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.UserData)?.Value.ToLower();
-            var httpContextUserId = new HttpContextAccessor().HttpContext.Request.RouteValues["userId"]?.ToString().ToLower();
+            var claimUserId = context?.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.UserData)?.Value.ToLower().Trim();
+            var httpContextUserId = new HttpContextAccessor().HttpContext.Request.RouteValues["userId"]?.ToString().ToLower().Trim();
             if (claimUserId == null || httpContextUserId == null) return false;
 
             return claimUserId == httpContextUserId;
