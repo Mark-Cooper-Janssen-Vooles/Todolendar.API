@@ -25,12 +25,6 @@ namespace Todolender.API.Repositories
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
             claims.Add(new Claim(ClaimTypes.UserData, user.Id.ToString()));
 
-            // loop into roles of users => we don't have roles?! 
-            //user.Roles.ForEach((role) =>
-            //{
-            //    claims.Add(new Claim(ClaimTypes.Role, role));
-            //});
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
