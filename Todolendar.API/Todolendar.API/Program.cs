@@ -60,7 +60,7 @@ builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAs
 
 builder.Services.AddDbContext<TodolendarDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Todolender"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Todolendar"));
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
