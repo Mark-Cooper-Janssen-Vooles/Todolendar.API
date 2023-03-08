@@ -1,8 +1,8 @@
-# Todolender.API
+# Todolendar.API
 
-This repository is the backend for Todolender, a project which is a todo list and calendar fusion.
+This repository is the backend for Todolendar, a project which is a todo list and calendar fusion.
 
-The frontend for Todolender is found at [Todolender.UI](https://github.com/Mark-Cooper-Janssen-Vooles/Todolender.UI).
+The frontend for Todolendar is found at [Todolendar.UI](https://github.com/Mark-Cooper-Janssen-Vooles/Todolendar.UI).
 
 Features include account creation, sign-in functionality, editing your profile, creating todo's and adding them into a calendar as a scheduled todo. Users will also be able to set SMS notifications for reminding them to plan their week / month / day, as well as for reminding them when they have a scheduled todo coming up.
 

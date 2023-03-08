@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todolendar.API", "Todolendar.API\Todolendar.API.csproj", "{A7899FF5-F8AC-4371-B98A-E9DE763AA0EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7899FF5-F8AC-4371-B98A-E9DE763AA0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7899FF5-F8AC-4371-B98A-E9DE763AA0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7899FF5-F8AC-4371-B98A-E9DE763AA0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7899FF5-F8AC-4371-B98A-E9DE763AA0EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {25DB6C0C-23B9-4C5E-90CA-B8FD2B14D9CD}
+	EndGlobalSection
+EndGlobal
