@@ -33,8 +33,8 @@ namespace Todolendar.API.Controllers
             return new CreatedAtActionResult(nameof(CreateScheduledTodoAsync), "ScheduledTodo", new { id = scheduledTodo.Id }, scheduledTodoDTO);
         }
 
-        [HttpGet]
-        [Route("{userId:guid}")]
+        [HttpPost] // essentially a GET but it has a body...?! Info out there is conflicting if GET's can have bodys, AXIOS doesn't want to play with it nicely.
+        [Route("get/{userId:guid}")]
         [Authorize(Policy = "user")]
         public async Task<IActionResult> GetScheduledTodosAsync([FromRoute] Guid userId, DateRangeRequest dateRangeRequest) // note: shouldn't send body to GET requests
         {
