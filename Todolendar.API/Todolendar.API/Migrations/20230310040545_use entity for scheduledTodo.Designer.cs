@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Todolendar.API.Data;
 
@@ -11,9 +12,11 @@ using Todolendar.API.Data;
 namespace Todolendar.API.Migrations
 {
     [DbContext(typeof(TodolendarDbContext))]
-    partial class TodolenderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230310040545_use entity for scheduledTodo")]
+    partial class useentityforscheduledTodo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
