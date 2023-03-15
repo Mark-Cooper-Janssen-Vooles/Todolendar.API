@@ -68,6 +68,7 @@ builder.Services.AddScoped<IScheduledTodoRepository, ScheduledTodoRepository>();
 builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 builder.Services.AddScoped<IPlanReminderRepository, PlanReminderRepository>();
 builder.Services.AddScoped<ITokenHandler, Todolendar.API.Repositories.TokenHandler>();
+builder.Services.AddScoped<IHashHandler, Todolendar.API.Repositories.HashHandler>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
