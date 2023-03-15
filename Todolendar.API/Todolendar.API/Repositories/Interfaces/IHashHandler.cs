@@ -14,7 +14,7 @@
 
     public interface IHashHandler
     {
-        Task<HashObject> HashPassword(string password);
-        Task<string> ValidateHashedPassword(string password);
+        HashObject HashPassword(string password);
+        string ValidateHashedPassword(string password);
     }
 }
