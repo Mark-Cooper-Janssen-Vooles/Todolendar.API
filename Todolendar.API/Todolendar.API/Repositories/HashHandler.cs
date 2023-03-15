@@ -8,9 +8,9 @@ namespace Todolendar.API.Repositories
     public class HashObject
     {
         public string Hash { get; set; }
-        public string Salt { get; set; }
+        public byte[] Salt { get; set; }
 
-        public HashObject(string hash, string salt)
+        public HashObject(string hash, byte[] salt)
         {
             Hash = hash;
             Salt = salt;
@@ -33,17 +33,15 @@ namespace Todolendar.API.Repositories
                 hashAlgorithm,
                 keySize);
 
-            var saltString = Encoding.Default.GetString(salt);
-
-            return new HashObject(Convert.ToHexString(hash), saltString);
+            return new HashObject(Convert.ToHexString(hash), salt);
         }
 
-        public bool ValidateHashedPassword(string password, string hash, string salt)
+        public bool ValidateHashedPassword(string password, string hash, byte[] salt)
         {
+            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(Encoding.ASCII.GetBytes(password), salt, iterations, hashAlgorithm, keySize);
+            var hashToCompareString = Convert.ToHexString(hashToCompare);
 
-            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(Encoding.ASCII.GetBytes(password), Encoding.ASCII.GetBytes(salt), iterations, hashAlgorithm, keySize);
-
-            return hashToCompare.SequenceEqual(Convert.FromHexString(hash));
+            return hashToCompareString.Equals(hash);
         }
     }
 }

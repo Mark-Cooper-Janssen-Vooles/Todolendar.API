@@ -22,13 +22,12 @@ namespace Todolendar.API.Repositories
         {
             // TODO: need to convert password hash here somehow 
 
-            // first find the user based on email.
-            // get the salt
+            // first find the user based on email + get the salt
             var existingUser = await dbContext.Users.FirstOrDefaultAsync(
                 x => x.Email.ToLower() == email.ToLower());
             if (existingUser == null) return null;
 
-            Console.WriteLine(existingUser.PasswordSalt);
+            //Console.WriteLine(existingUser.PasswordSalt);
 
             var validatedHash = hashHandler.ValidateHashedPassword(password, existingUser.PasswordHash, existingUser.PasswordSalt);
 

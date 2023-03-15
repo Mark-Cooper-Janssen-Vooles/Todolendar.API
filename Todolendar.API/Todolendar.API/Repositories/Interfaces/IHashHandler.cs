@@ -3,6 +3,6 @@
     public interface IHashHandler
     {
         HashObject HashPassword(string password);
-        bool ValidateHashedPassword(string password, string hash, string salt);
+        bool ValidateHashedPassword(string password, string hash, byte[] salt);
     }
 }
