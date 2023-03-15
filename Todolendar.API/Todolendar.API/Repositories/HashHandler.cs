@@ -7,9 +7,9 @@ namespace Todolendar.API.Repositories
     public class HashObject
     {
         public string Hash { get; set; }
-        public byte[] Salt { get; set; }
+        public string Salt { get; set; }
 
-        public HashObject(string hash, byte[] salt)
+        public HashObject(string hash, string salt)
         {
             Hash = hash;
             Salt = salt;
@@ -32,7 +32,9 @@ namespace Todolendar.API.Repositories
                 hashAlgorithm,
                 keySize);
 
-            return new HashObject(Convert.ToHexString(hash), salt);
+            var saltString = System.Text.Encoding.Default.GetString(salt);
+
+            return new HashObject(Convert.ToHexString(hash), saltString);
         }
 
         public string ValidateHashedPassword(string password)

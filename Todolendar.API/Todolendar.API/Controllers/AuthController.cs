@@ -52,6 +52,7 @@ namespace Todolendar.API.Controllers
             var user = mapper.Map<User>(createUserRequest);
             var hash = hashHandler.HashPassword(user.PasswordHash);
             user.PasswordHash = hash.Hash;
+            user.PasswordSalt = hash.Salt;
             // use repository to create 
             user = await userRepository.CreateUserAsync(user);
             // convert domain back to DTO 
