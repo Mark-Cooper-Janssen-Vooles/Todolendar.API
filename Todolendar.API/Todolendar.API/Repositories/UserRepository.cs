@@ -3,6 +3,7 @@ using Todolendar.API.Data;
 using Todolendar.API.Models.Domain;
 using Todolendar.API.Repositories.Interfaces;
 using Todolendar.API.Models.DTO;
+using System.Security.Cryptography;
 
 namespace Todolendar.API.Repositories
 {
@@ -18,6 +19,16 @@ namespace Todolendar.API.Repositories
         public async Task<User> AuthenticateUserAsync(string email, string password)
         {
             // TODO: need to convert password hash here somehow 
+
+            const int keySize = 64;
+            const int iterations = 350000;
+            HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+
+            bool VerifyPassword(string password, string hash, byte[] salt)
+            {
+                var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, hashAlgorithm, keySize);
+                return hashToCompare.SequenceEqual(Convert.FromHexString(hash));
+            }
 
             var user = await dbContext.Users.FirstOrDefaultAsync( 
                 x => x.Email.ToLower() == email.ToLower() &&
