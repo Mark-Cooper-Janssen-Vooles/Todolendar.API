@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using AutoMapper.Configuration.Annotations;
+using System.Security.Cryptography;
 using System.Text;
 using Todolendar.API.Repositories.Interfaces;
 
@@ -18,12 +19,12 @@ namespace Todolendar.API.Repositories
 
     public class HashHandler : IHashHandler
     {
+        const int keySize = 64;
+        const int iterations = 350000;
+        HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+
         public HashObject HashPassword(string password)
         {
-            const int keySize = 64;
-            const int iterations = 350000;
-            HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
-
             var salt = RandomNumberGenerator.GetBytes(keySize);
             var hash = Rfc2898DeriveBytes.Pbkdf2(
                 Encoding.UTF8.GetBytes(password),
@@ -32,14 +33,17 @@ namespace Todolendar.API.Repositories
                 hashAlgorithm,
                 keySize);
 
-            var saltString = System.Text.Encoding.Default.GetString(salt);
+            var saltString = Encoding.Default.GetString(salt);
 
             return new HashObject(Convert.ToHexString(hash), saltString);
         }
 
-        public string ValidateHashedPassword(string password)
+        public bool ValidateHashedPassword(string password, string hash, string salt)
         {
-            throw new NotImplementedException();
+
+            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(Encoding.ASCII.GetBytes(password), Encoding.ASCII.GetBytes(salt), iterations, hashAlgorithm, keySize);
+
+            return hashToCompare.SequenceEqual(Convert.FromHexString(hash));
         }
     }
 }

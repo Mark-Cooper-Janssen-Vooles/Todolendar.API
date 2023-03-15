@@ -10,33 +10,47 @@ namespace Todolendar.API.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly TodolendarDbContext dbContext;
+        private readonly IHashHandler hashHandler;
 
-        public UserRepository(TodolendarDbContext dbContext)
+        public UserRepository(TodolendarDbContext dbContext, IHashHandler hashHandler)
         {
             this.dbContext = dbContext;
+            this.hashHandler = hashHandler; 
         }
 
         public async Task<User> AuthenticateUserAsync(string email, string password)
         {
             // TODO: need to convert password hash here somehow 
 
-            const int keySize = 64;
-            const int iterations = 350000;
-            HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+            // first find the user based on email.
+            // get the salt
+            var existingUser = await dbContext.Users.FirstOrDefaultAsync(
+                x => x.Email.ToLower() == email.ToLower());
+            if (existingUser == null) return null;
 
-            bool VerifyPassword(string password, string hash, byte[] salt)
+            Console.WriteLine(existingUser.PasswordSalt);
+
+            var validatedHash = hashHandler.ValidateHashedPassword(password, existingUser.PasswordHash, existingUser.PasswordSalt);
+
+            // if so, authenticate user. 
+
+            if (validatedHash)
             {
-                var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, hashAlgorithm, keySize);
-                return hashToCompare.SequenceEqual(Convert.FromHexString(hash));
+                existingUser.PasswordHash = null;
+                return existingUser;
             }
 
-            var user = await dbContext.Users.FirstOrDefaultAsync( 
-                x => x.Email.ToLower() == email.ToLower() &&
-                x.PasswordHash == password.ToLower());
-            if (user == null) return null;
+            return null;
 
-            user.PasswordHash = null;
-            return user;
+            //var user = await dbContext.Users.FirstOrDefaultAsync( 
+            //    x => x.Email.ToLower() == email.ToLower() &&
+            //    x.PasswordHash == password.ToLower());
+            //if (user == null) return null;
+
+
+
+            //user.PasswordHash = null;
+            //return user;
         }
 
         public async Task<User> CreateUserAsync(User user)
