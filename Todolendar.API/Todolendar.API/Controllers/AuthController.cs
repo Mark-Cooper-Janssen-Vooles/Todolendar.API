@@ -48,12 +48,9 @@ namespace Todolendar.API.Controllers
         [ActionName("CreateUserAsync")]
         public async Task<IActionResult> CreateUserAsync(CreateUserRequest createUserRequest)
         {
-            // convert DTO to domain model
+            // convert DTO to domain model and hash password
             var user = mapper.Map<User>(createUserRequest);
             var hash = hashHandler.HashPassword(user.PasswordHash);
-
-            Console.WriteLine($"Password hash obj: {hash}");
-
             user.PasswordHash = hash.Hash;
             // use repository to create 
             user = await userRepository.CreateUserAsync(user);
