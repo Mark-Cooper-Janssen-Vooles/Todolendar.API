@@ -1,4 +1,6 @@
-﻿namespace Todolendar.API.Models.DTO.ScheduledTodo
+﻿using Todolendar.API.Models.Domain;
+
+namespace Todolendar.API.Models.DTO.ScheduledTodo
 {
     public class UpdateScheduledTodoRequest
     {
@@ -8,7 +10,7 @@
         public string? Description { get; set; }
         public string Colour { get; set; }
         public int RecurCount { get; set; }
-        public string RecurFrequencyType { get; set; }
+        public RecurFrequency RecurFrequencyType { get; set; }
         public DateTime RecurEndDate { get; set; }
         public int NotifyBeforeTime { get; set; }
         public DateTime ScheduledAt { get; set; }

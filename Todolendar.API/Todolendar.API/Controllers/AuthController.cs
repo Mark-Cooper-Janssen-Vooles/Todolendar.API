@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 using Todolendar.API.Models.Domain;
 using Todolendar.API.Models.DTO.Auth;
 using Todolendar.API.Repositories.Interfaces;
@@ -37,15 +39,37 @@ namespace Todolendar.API.Controllers
 
             return Ok(userDto);
         }
-        
+
 
         [HttpPost]
         [Route("CreateUser")]
         [ActionName("CreateUserAsync")]
         public async Task<IActionResult> CreateUserAsync(CreateUserRequest createUserRequest)
         {
+            string HashPassword(string password, out byte[] salt)
+            {
+                const int keySize = 64;
+                const int iterations = 350000;
+                HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+
+                salt = RandomNumberGenerator.GetBytes(keySize);
+                var hash = Rfc2898DeriveBytes.Pbkdf2(
+                    Encoding.UTF8.GetBytes(password),
+                    salt,
+                    iterations,
+                    hashAlgorithm,
+                    keySize);
+                return Convert.ToHexString(hash);
+            }
+
             // convert DTO to domain model
             var user = mapper.Map<User>(createUserRequest);
+            var hash = HashPassword(user.PasswordHash, out byte[] salt);
+
+            Console.WriteLine($"Password hash: {hash}");
+            Console.WriteLine($"Generated salt: {Convert.ToHexString(salt)}");
+
+            user.PasswordHash = hash;
             // use repository to create 
             user = await userRepository.CreateUserAsync(user);
             // convert domain back to DTO 
