@@ -16,12 +16,14 @@ namespace Todolendar.API.Controllers
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
         private readonly ITokenHandler tokenHandler;
+        private readonly IHashHandler hashHandler;
 
-        public AuthController(IUserRepository userRepository, IMapper mapper, ITokenHandler tokenHandler)
+        public AuthController(IUserRepository userRepository, IMapper mapper, ITokenHandler tokenHandler, IHashHandler hashHandler)
         {
             this.userRepository = userRepository;
             this.mapper = mapper;
             this.tokenHandler = tokenHandler;
+            this.hashHandler = hashHandler;
         }
         
         [HttpGet]
@@ -46,30 +48,13 @@ namespace Todolendar.API.Controllers
         [ActionName("CreateUserAsync")]
         public async Task<IActionResult> CreateUserAsync(CreateUserRequest createUserRequest)
         {
-            string HashPassword(string password, out byte[] salt)
-            {
-                const int keySize = 64;
-                const int iterations = 350000;
-                HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
-
-                salt = RandomNumberGenerator.GetBytes(keySize);
-                var hash = Rfc2898DeriveBytes.Pbkdf2(
-                    Encoding.UTF8.GetBytes(password),
-                    salt,
-                    iterations,
-                    hashAlgorithm,
-                    keySize);
-                return Convert.ToHexString(hash);
-            }
-
             // convert DTO to domain model
             var user = mapper.Map<User>(createUserRequest);
-            var hash = HashPassword(user.PasswordHash, out byte[] salt);
+            var hash = hashHandler.HashPassword(user.PasswordHash);
 
-            Console.WriteLine($"Password hash: {hash}");
-            Console.WriteLine($"Generated salt: {Convert.ToHexString(salt)}");
+            Console.WriteLine($"Password hash obj: {hash}");
 
-            user.PasswordHash = hash;
+            user.PasswordHash = hash.Hash;
             // use repository to create 
             user = await userRepository.CreateUserAsync(user);
             // convert domain back to DTO 

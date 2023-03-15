@@ -4,6 +4,18 @@ using Todolendar.API.Repositories.Interfaces;
 
 namespace Todolendar.API.Repositories
 {
+    public class HashObject
+    {
+        public string Hash { get; set; }
+        public byte[] Salt { get; set; }
+
+        public HashObject(string hash, byte[] salt)
+        {
+            Hash = hash;
+            Salt = salt;
+        }
+    }
+
     public class HashHandler : IHashHandler
     {
         public HashObject HashPassword(string password)
