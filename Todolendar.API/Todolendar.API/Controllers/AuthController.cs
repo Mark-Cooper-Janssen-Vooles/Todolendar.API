@@ -57,6 +57,7 @@ namespace Todolendar.API.Controllers
             user = await userRepository.CreateUserAsync(user);
             // convert domain back to DTO 
             var userDto = mapper.Map<UserDTO>(user);
+            userDto.PasswordHash = "";
             // give user response + DTO
             return new CreatedAtActionResult(nameof(CreateUserAsync), "Auth", new { id = userDto.Id }, userDto);
         }
