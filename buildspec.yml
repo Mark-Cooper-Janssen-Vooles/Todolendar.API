@@ -6,6 +6,7 @@ phases:
       dotnet: 6.0
   build:
     commands:
+      - cd Todolendar.API
       - dotnet restore
       - dotnet build -c Release
       - dotnet publish -c Release -o ./publish
