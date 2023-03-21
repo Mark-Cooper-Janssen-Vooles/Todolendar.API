@@ -12,4 +12,4 @@ phases:
       - dotnet publish -c Release -o ./publish
 artifacts:
   files:
-    - ./publish/**/*
+    - ./Todolendar.API/publish/**/*
