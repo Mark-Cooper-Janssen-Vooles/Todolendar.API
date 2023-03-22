@@ -17,6 +17,7 @@ artifacts:
     - ./deploy-scripts
     - ./deploy-scripts/*
     - ./Todolendar.API/publish/**/*
+    - ./scripts/*
     - .\scripts\*
 
   
