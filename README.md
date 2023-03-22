@@ -31,4 +31,5 @@ If testing the endpoint via swagger, you will need to first create a user and th
 
 ## Releasing 
 
-Changes made to this repository and merged into master will trigger a CICD AWS codepipeline pipeline on `ap-southeast-2`, and be deployed to an ec2 instance in production.
+Changes made to this repository and merged into master will trigger a CICD AWS codepipeline pipeline on `ap-southeast-2`, and be deployed to an ec2 instance in production. 
+The pipeline can be found [here](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/todolender-api-pipeline/view?region=ap-southeast-2) once logged in.
