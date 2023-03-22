@@ -12,9 +12,11 @@ phases:
       - dotnet publish -c Release -r linux-x64 -o ./publish
 artifacts:
   files:
-    # - ./appspec.yml
+    - ./appspec.yml
     - ./deploy-scripts/**/*
     - ./deploy-scripts
     - ./deploy-scripts/*
     - ./Todolendar.API/publish/**/*
+    - .\scripts\*
+
   
