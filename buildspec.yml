@@ -9,8 +9,9 @@ phases:
       - cd Todolendar.API
       - dotnet restore
       - dotnet build -c Release
-      - dotnet publish -c Release -o ./publish
+      - dotnet publish -c Release -r linux-x64 -o ./publish
 artifacts:
   files:
     - ./appspec.yml
+    - ./scripts/*
     - ./Todolendar.API/publish/**/*
