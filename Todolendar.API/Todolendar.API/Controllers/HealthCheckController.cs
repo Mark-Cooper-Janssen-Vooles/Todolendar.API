@@ -13,7 +13,7 @@ namespace Todolendar.API.Controllers
         public HealthCheckController() {}
 
         [HttpGet]
-        public async Task<IActionResult> healthCheck()
+        public async Task<IActionResult> HealthCheck()
         {
             return Ok();
         }
