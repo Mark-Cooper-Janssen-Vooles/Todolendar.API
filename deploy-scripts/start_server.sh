@@ -6,4 +6,4 @@ echo "nvm ls"
 echo "npm -v" 
 
 cd /home/ec2-user/api/Todolendar.API/publish
-pm2 start Todolendar.API.dll
+pm2 start "Todolendar.API.dll" --name todolendar
