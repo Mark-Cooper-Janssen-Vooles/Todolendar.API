@@ -3,20 +3,20 @@ os: linux
 files:
   - source: /
     destination: /home/ec2-user/api
-permissions:
-  - object: /
-    pattern: "**"
-    owner: ec2-user
-    group: ec2-user
+# permissions:
+#   - object: /
+#     pattern: "**"
+#     owner: ec2-user
+#     group: ec2-user
 hooks:
   BeforeInstall:
     - location: deploy-scripts/before_install.sh
-      timeout: 1200
-      runas: ec2-user
+      timeout: 600
+      runas: root
   ApplicationStart:
     - location: deploy-scripts/start_server.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
   ApplicationStop: # info here: https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html
     # - location: deploy-scripts/stop_server.sh
     #   timeout: 300
