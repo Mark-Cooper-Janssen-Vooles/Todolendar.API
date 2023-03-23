@@ -3,11 +3,6 @@ os: linux
 files:
   - source: /
     destination: /home/ec2-user/api
-# permissions:
-#   - object: /
-#     pattern: "**"
-#     owner: ec2-user
-#     group: ec2-user
 hooks:
   BeforeInstall:
     - location: deploy-scripts/before_install.sh

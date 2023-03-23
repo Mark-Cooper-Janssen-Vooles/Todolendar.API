@@ -43,3 +43,5 @@ It requires an IAM role attached which has s3 write permissions.
 
 #### CodeDeploy
 Deploy uses the appspec.yml file. It requires to be linked to an the EC2 instance with an IAM role allowing s3 permissions and codeDeploy permissions. The EC2 instance must also have the CodeDeploy agent installed, which has been done in my case using a `User Data` script, attached to the EC2 which runs on startup. 
+
+The appspec uses the beforeInstall, ApplicationStart and ApplicationStop hooks which have their own deploy-scripts.
