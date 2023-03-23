@@ -18,6 +18,6 @@ hooks:
       timeout: 300
       runas: ec2-user
   ApplicationStop: # info here: https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html
-    - location: deploy-scripts/stop_server.sh
-      timeout: 300
-      runas: ec2-user
+    # - location: deploy-scripts/stop_server.sh
+    #   timeout: 300
+    #   runas: ec2-user
