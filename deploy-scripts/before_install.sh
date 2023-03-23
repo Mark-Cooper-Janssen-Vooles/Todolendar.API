@@ -12,7 +12,7 @@ nvm install 16
 
 # install PM2 (process management)
 echo "installing pm2"
-npm install pm2
+npm install pm2 -g
 
 # install .net runtime - https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install
 echo "installing .net runtime"
