@@ -34,14 +34,18 @@ If testing the endpoint via swagger, you will need to first create a user and th
 Changes made to this repository and merged into master will trigger a CICD AWS CodePipeline pipeline on `ap-southeast-2`, and be deployed to an ec2 instance in production. 
 The pipeline can be found [here](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/todolender-api-pipeline/view?region=ap-southeast-2) once logged in.
 
-#### Source
+### Source
 Source is linked to the github repository and picks up any changes to master and kicks off another execution. It requires github authentication when set up.
 
-#### CodeBuild 
+### CodeBuild 
 Build use the buildspec.yml, running the commands and outputting the artifacts into an s3 bucket.
 It requires an IAM role attached which has s3 write permissions. 
 
-#### CodeDeploy
+### CodeDeploy
 Deploy uses the appspec.yml file. It requires to be linked to an the EC2 instance with an IAM role allowing s3 permissions and codeDeploy permissions. The EC2 instance must also have the CodeDeploy agent installed, which has been done in my case using a `User Data` script, attached to the EC2 which runs on startup. 
 
 The appspec uses the beforeInstall, ApplicationStart and ApplicationStop hooks which have their own deploy-scripts.
+
+To expose the API in the browser, these things have to be in place: 
+
+1. 
