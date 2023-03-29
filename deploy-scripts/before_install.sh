@@ -22,7 +22,8 @@ npm install pm2 -g
 # sudo chmod +x ./dotnet-install.sh
 # ./dotnet-install.sh --version latest --runtime dotnet
 
-DOTNET_FILE=dotnet-sdk-6.0.100-linux-x64.tar.gz
+sudo wget https://download.visualstudio.microsoft.com/download/pr/868b2f38-62ca-4fd8-93ea-e640cf4d2c5b/1e615b6044c0cf99806b8f6e19c97e03/dotnet-sdk-6.0.407-linux-x64.tar.gz
+DOTNET_FILE=dotnet-sdk-6.0.407-linux-x64.tar.gz
 export DOTNET_ROOT=$(pwd)/.dotnet
 
 mkdir -p "$DOTNET_ROOT" && tar zxf "$DOTNET_FILE" -C "$DOTNET_ROOT"
