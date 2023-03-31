@@ -58,8 +58,6 @@ The appspec uses the beforeInstall, ApplicationStart and ApplicationStop hooks w
 
 To expose the API in the browser, i've written a guide about it [here](https://github.com/Mark-Cooper-Janssen-Vooles/devops-webdev-guide#exposing-an-api-on-an-ec2).
 
-
-Deubgging notes: 
-
-
-wget localhost:5000/ping --no-check-certificate
+However, when using CodeDeploy there is one more step. You cannot simply run `dotnet Todolendar.API.dll --urls "http://*:5000;https://*:5001"` because this will be a constantly running process, and the script will timeout. To fix this issue:
+  - We need to run the application as a daemon process. This will help with restarts etc too 
+  - This app has used pm2 to manage it as a background process which takes care of starting, stopping and restarting it 
