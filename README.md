@@ -107,3 +107,18 @@ sudo systemctl restart apache2
 ````
 
 After the above is done, verify the API is running by opening the web browser and visiting your EC2 isntance's public IP followed by "/api". 
+
+
+====
+
+Great source: 
+- create ec2 
+  - add security group which allows incoming http and https traffic to certain ports 
+  - there should be an SSH one for 0.0.0.0/0 => used to ssh into the linux terminal
+  - there should be a HTTPS (port 443) / HTTP (port 80) => for 0.0.0.0/0 and ::/0 (both http and https)
+  - if any custom ones as well, i.e. port range 5000-5001 for http for 0.0.0.0/0 will expose that port 
+
+- connect to instance and install .net 6 
+  - confirm its installed by running `dotnet --version`
+
+- create a web API 

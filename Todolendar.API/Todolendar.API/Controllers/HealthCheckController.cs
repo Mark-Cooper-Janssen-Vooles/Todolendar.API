@@ -15,7 +15,9 @@ namespace Todolendar.API.Controllers
         [HttpGet]
         public async Task<IActionResult> HealthCheck()
         {
-            return Ok();
+            string[] testObj = { "hello", "world" };
+
+            return Ok(testObj);
         }
     }
 }
