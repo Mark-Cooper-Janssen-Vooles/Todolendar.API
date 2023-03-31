@@ -1,14 +1,14 @@
 module.exports = {
   apps : [{
     name   : "Todolendar API",
-    exec_mode: "cluster",
-    env: {
-      NODE_ENV: "production"
-    },
     script : "sudo /home/ec2-user/dotnet/dotnet Todolendar.API.dll --urls \"http://*:5000;https://*5001\"",
+    exec_mode: "cluster",
     cwd: "/home/ec2-user/api/Todolendar.API/publish",
     watch: true,
-    max_memory_testart: "2G"
+    max_memory_testart: "2G",
+    env: {
+      "NODE_ENV": "production"
+    },
   }]
 }
 
