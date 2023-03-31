@@ -13,21 +13,35 @@ using Microsoft.Extensions.Hosting;
 using Todolendar.API.Data;
 using Todolendar.API.Repositories;
 using Todolendar.API.Repositories.Interfaces;
+using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(args);
+var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 // Add services to the container.
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
         policy  =>
         {
-            policy.WithOrigins("http://localhost:3000",
-                    "https://localhost:3000")
+            if (env == "Production")
+            {
+                policy.WithOrigins("http://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com/",
+                    "https://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com/")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
+            }
+            else
+            {
+                policy.WithOrigins("http://localhost:3000",
+                        "https://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            }
         });
 });
 builder.Services.AddControllers();

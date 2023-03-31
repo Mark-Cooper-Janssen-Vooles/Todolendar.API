@@ -7,6 +7,7 @@ phases:
   build:
     commands:
       - cd Todolendar.API
+      - export ASPNETCORE_ENVIRONMENT=Production
       - dotnet restore
       - dotnet build -c Release
       - dotnet publish -c Release -r linux-x64 -o ./publish
