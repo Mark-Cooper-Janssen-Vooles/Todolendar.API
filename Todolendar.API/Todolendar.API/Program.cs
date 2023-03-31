@@ -28,8 +28,8 @@ builder.Services.AddCors(options =>
         {
             if (env == "Production")
             {
-                policy.WithOrigins("http://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com/",
-                    "https://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com/")
+                policy.WithOrigins("http://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com",
+                    "https://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
