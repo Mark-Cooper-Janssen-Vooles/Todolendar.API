@@ -5,13 +5,13 @@ export NVM_DIR="$HOME/.nvm"
 export DOTNET_ROOT=$HOME/dotnet
 export PATH=$PATH:$HOME/dotnet
 
-cd /home/ec2-user/api/
-pm2 start ecosystem.config.js
+# cd /home/ec2-user/api/
+# pm2 start ecosystem.config.js
 
 # in the EC2 you should be able to run: 'wget localhost:5000/ping --no-check-certificate' and then 'cat ping' and see output to confirm it is working.
 
-
-#cd /home/ec2-user/api/Todolendar.API/publish
+cd /home/ec2-user/api/Todolendar.API/publish
+pm2 start dotnet --name todolendar -- Todolendar.API.dll --urls "http://*:5000;https://*:5001" --daemon
 
 # Note: need to run API in pm2 as a demon service or else the process never finishes and codeDeploy gets a timeout 
 

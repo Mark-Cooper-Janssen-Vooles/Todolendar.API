@@ -57,3 +57,9 @@ Deploy uses the appspec.yml file. It requires to be linked to an the EC2 instanc
 The appspec uses the beforeInstall, ApplicationStart and ApplicationStop hooks which have their own deploy-scripts.
 
 To expose the API in the browser, i've written a guide about it [here](https://github.com/Mark-Cooper-Janssen-Vooles/devops-webdev-guide#exposing-an-api-on-an-ec2).
+
+
+Deubgging notes: 
+
+
+wget localhost:5000/ping --no-check-certificate
