@@ -7,4 +7,4 @@ export PATH=$PATH:$HOME/dotnet
 
 cd /home/ec2-user/api/Todolendar.API/publish
 
-dotnet Todolendar.API.dll --urls "http://*:5000;https://*5001"
+# dotnet Todolendar.API.dll --urls "http://*:5000;https://*5001"
