@@ -2,6 +2,8 @@
 
 These scripts will be used by CodeDeploy in aws, from the appspec.yml file. 
 
+Note: We need to run API in pm2 as a demon service or else the process never finishes and codeDeploy gets a timeout. `dotnet Todolendar.API.dll --urls "http://*:5000;https://*:5001"` never finishes from CodeDeploys point of view so it errors out. 
+
 To check the app is running correctly:
 - connect to the EC2 and run `pm2 list` and it should show 'todolendar' as 'online' status. 
 - hit an endpoint `wget localhost:5000/ping --no-check-certificate` and then `cat ping` and see output to confirm it is working
