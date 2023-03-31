@@ -22,6 +22,3 @@ wget https://download.visualstudio.microsoft.com/download/pr/868b2f38-62ca-4fd8-
 mkdir -p $HOME/dotnet && tar zxf ~/dotnet-sdk-6.0.407-linux-x64.tar.gz -C $HOME/dotnet
 export DOTNET_ROOT=$HOME/dotnet
 export PATH=$PATH:$HOME/dotnet
-
-sudo echo 'export DOTNET_ROOT=$HOME/dotnet' >> .bash_profile
-sudo echo 'export PATH=$PATH:$HOME/dotnet' >> .bash_profile
