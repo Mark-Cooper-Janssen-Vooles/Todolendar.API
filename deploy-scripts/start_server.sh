@@ -7,6 +7,6 @@ export PATH=$PATH:$HOME/dotnet
 
 cd /home/ec2-user/api/Todolendar.API/publish
 
-# note need to use sudo, and need to point it to where the .net executable is
+# Note: need to use sudo to expose it on any port (the * part)
 # By default, the sudo command resets the PATH environment variable to a secure path that doesn't include the path to the dotnet executable. To allow sudo to find the dotnet executable, you can use the full path to the dotnet executable
 sudo /home/ec2-user/dotnet/dotnet Todolendar.API.dll --urls "http://*:5000;https://*5001"
