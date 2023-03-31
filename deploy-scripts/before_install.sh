@@ -16,12 +16,12 @@ npm install pm2 -g
 
 # install .net6 runtime if it doesn't exist - https://learn.microsoft.com/en-us/dotnet/core/install/
 cd ~
-$filePath = "/home/ec2-user/dotnet-sdk-6.0.407-linux-x64.tar.gz"
+filePath="/home/ec2-user/dotnet-sdk-6.0.407-linux-x64.tar.gz"
 
-if (-not (Test-Path $filePath)) {
+if [ -f "$filePath" ]; then 
   wget https://download.visualstudio.microsoft.com/download/pr/868b2f38-62ca-4fd8-93ea-e640cf4d2c5b/1e615b6044c0cf99806b8f6e19c97e03/dotnet-sdk-6.0.407-linux-x64.tar.gz
   mkdir -p $HOME/dotnet && tar zxf ~/dotnet-sdk-6.0.407-linux-x64.tar.gz -C $HOME/dotnet
-}
+fi
 
 export DOTNET_ROOT=$HOME/dotnet
 export PATH=$PATH:$HOME/dotnet
