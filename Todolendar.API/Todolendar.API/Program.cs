@@ -16,6 +16,12 @@ using Todolendar.API.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.EnvironmentName != "Development")
+{
+    builder.WebHost.UseUrls("http://*:5000", "https://*5001");
+}
+
+
 // Add services to the container.
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
