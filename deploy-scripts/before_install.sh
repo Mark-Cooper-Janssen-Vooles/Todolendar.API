@@ -22,16 +22,15 @@ npm install pm2 -g
 # sudo chmod +x ./dotnet-install.sh
 # ./dotnet-install.sh --version latest --runtime dotnet
 
-sudo wget https://download.visualstudio.microsoft.com/download/pr/868b2f38-62ca-4fd8-93ea-e640cf4d2c5b/1e615b6044c0cf99806b8f6e19c97e03/dotnet-sdk-6.0.407-linux-x64.tar.gz
-DOTNET_FILE=dotnet-sdk-6.0.407-linux-x64.tar.gz
-export DOTNET_ROOT=$(pwd)/.dotnet
 
-mkdir -p "$DOTNET_ROOT" && tar zxf "$DOTNET_FILE" -C "$DOTNET_ROOT"
+# top answer here: https://stackoverflow.com/questions/62942913/install-dotnet-core-on-ec2-linux-ami-2-c6g
+sudo yum -y install libicu60
 
-export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
-
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$HOME/.dotnet:$HOME/.dotnet/tools
+cd ~
+wget https://download.visualstudio.microsoft.com/download/pr/868b2f38-62ca-4fd8-93ea-e640cf4d2c5b/1e615b6044c0cf99806b8f6e19c97e03/dotnet-sdk-6.0.407-linux-x64.tar.gz
+mkdir -p $HOME/dotnet && tar zxf ~/dotnet-sdk-6.0.407-linux-x64.tar.gz -C $HOME/dotnet
+export DOTNET_ROOT=$HOME/dotnet
+export PATH=$PATH:$HOME/dotnet
 
 # mkdir -p $HOME/dotnet && tar zxf ~/dotnet-sdk-3.1.302-linux-arm64.tar.gz -C $HOME/dotnet
 # export DOTNET_ROOT=$HOME/dotnet

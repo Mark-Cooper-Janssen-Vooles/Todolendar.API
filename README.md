@@ -96,7 +96,14 @@ sudo systemctl enable apache2
 # Configure Apache to allow traffic on port 80 by modifying the firewall settings. If you are using the default firewall, you can use the following command to allow incoming traffic on port 80:
 sudo ufw allow 80/tcp
 
-# Modify the Apache configuration file to serve your .NET 6 API. Open the configuration file with a text editor:
-sudo nano /etc/apache2/sites-available/todolendar.conf
+# If you have SELinux enabled, allow HTTP traffic by running the following command:
+sudo setsebool -P httpd_can_network_connect 1
 
+#Deploy your .NET 6 API to your EC2 instance by copying your compiled application files to the Apache document root directory:
+sudo cp -r /path/to/your/api/bin/Release/net6.0/publish/* /var/www/html/
+
+# Restart the Apache service by running the following command:
+sudo systemctl restart apache2
 ````
+
+After the above is done, verify the API is running by opening the web browser and visiting your EC2 isntance's public IP followed by "/api". 
