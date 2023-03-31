@@ -16,10 +16,10 @@ using Todolendar.API.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-if (builder.Environment.EnvironmentName != "Development")
-{
-    builder.WebHost.UseUrls("http://*:5000", "https://*5001");
-}
+// if (builder.Environment.EnvironmentName != "Development")
+// {
+//     builder.WebHost.UseUrls("http://*:5000", "https://*5001");
+// }
 
 
 // Add services to the container.
