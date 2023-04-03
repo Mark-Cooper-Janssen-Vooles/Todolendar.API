@@ -66,6 +66,8 @@ builder.Services.AddAWSService<IAmazonSecretsManager>(new AWSOptions
 
 builder.Services.AddDbContext<TodolendarDbContext>(async options =>
 {
+    Console.WriteLine(env);
+
     if (env == "Production")
     {
         Console.WriteLine("env is equal to production");
