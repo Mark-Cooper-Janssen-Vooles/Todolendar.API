@@ -1,3 +1,7 @@
+using Amazon;
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.SecretsManager;
+using Amazon.SecretsManager.Model;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -5,18 +9,12 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Todolendar.API.Data;
 using Todolendar.API.Repositories;
 using Todolendar.API.Repositories.Interfaces;
-using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(args);
-//var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 // Add services to the container.
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -61,9 +59,48 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());
 
-builder.Services.AddDbContext<TodolendarDbContext>(options =>
+builder.Services.AddAWSService<IAmazonSecretsManager>(new AWSOptions
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Todolendar"));
+    Region = RegionEndpoint.APSoutheast2
+});
+
+builder.Services.AddDbContext<TodolendarDbContext>(async options =>
+{
+    if (env == "Production")
+    {
+        Console.WriteLine("env is equal to production");
+
+        // Retrieve the database connection string from AWS Secrets Manager
+        string secretName = "prod/TodolendarDB/mySql";
+        string region = "ap-southeast-2";
+        IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
+        GetSecretValueRequest request = new GetSecretValueRequest
+        {
+            SecretId = secretName,
+            VersionStage = "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified.
+        };
+
+        GetSecretValueResponse response;
+
+        try
+        {
+            response = await client.GetSecretValueAsync(request);
+        }
+        catch (Exception e)
+        {
+            // For a list of the exceptions thrown, see
+            // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+            throw e;
+        }
+
+        string secret = response.SecretString;
+
+        options.UseSqlServer(secret);
+
+    } else
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Todolendar"));
+    }
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
