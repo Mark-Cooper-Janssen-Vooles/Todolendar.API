@@ -18,3 +18,4 @@ artifacts:
     # - ./Todolendar.API/publish/**/*
     # - ./Todolendar.API/Todolendar.API/Todolendar.API.csproj
     - ./Todolendar.API/**/*
+  
