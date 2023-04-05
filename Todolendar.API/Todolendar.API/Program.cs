@@ -71,7 +71,7 @@ builder.Services.AddDbContext<TodolendarDbContext>(async options =>
         Console.WriteLine("env is equal to production");
 
         // Retrieve the database connection string from AWS Secrets Manager
-        string secretName = "prod/TodolendarDB/mySql";
+        string secretName = "prod/TodolendarDb/ConnectionString";
         string region = "ap-southeast-2";
         IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
         GetSecretValueRequest request = new GetSecretValueRequest

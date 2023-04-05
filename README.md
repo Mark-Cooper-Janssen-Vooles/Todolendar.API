@@ -76,5 +76,14 @@ To set this up, I manually created an mysql database in RDS.
 - Made sure the VPC was the same as the EC2
 - After creating it, went into the security group for it and added an inbound rule with "custom TCP" with the port as 3306 (the port the sql db is open to), and put the source as the security group for the ec2 (i.e. it should start with sg-*)
 - tested the connection is working in the ec2 
-  - `sudo yum install telnet`
-  - `telnet <db endpoint> 3306`
+  - `sudo yum install mysql`
+  - `mysql -h database-1.cq3pcc0prrl2.ap-southeast-2.rds.amazonaws.com -u admin -p`
+    - you will be prompted to enter the password
+  - to see inside the database for tables etc, run `show databases;`
+    - type `exit` to exit the mysql command line
+
+From here, need to set up migrations:
+- One way to do this is to run this command in the SSH connection:
+  - `dotnet ef migrations add <MigrationName> --project <ProjectName> --startup-project <StartupProjectName>`
+    - in our case: `dotnet ef migrations add <MigrationName> --project <ProjectName> --startup-project <StartupProjectName>`
+  - 
