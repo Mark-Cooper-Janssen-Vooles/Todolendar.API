@@ -83,7 +83,12 @@ To set this up, I manually created an mysql database in RDS.
     - type `exit` to exit the mysql command line
 
 From here, need to set up migrations:
-- One way to do this is to run this command in the SSH connection:
-  - `dotnet ef migrations add <MigrationName> --project <ProjectName> --startup-project <StartupProjectName>`
-    - in our case: `dotnet ef migrations add <MigrationName> --project <ProjectName> --startup-project <StartupProjectName>`
-  - 
+- One way to do this is to run this command in the SSH connection (first cd to the .dll directory)
+  - SSH as root user
+  - install dotnet ef (add this to start_server.sh):
+    - `dotnet tool install --global dotnet-ef`
+    - `export PATH="$PATH:$HOME/.dotnet/tools"`
+    - run this to make sure its installed: `dotnet ef --version`
+  - `dotnet ef migrations add InitialCreate --assembly <YourApiDll> --startup-assembly <YourApiDll> --project <YourApiProject>`
+    - in our case: `dotnet ef migrations add InitialCreate --assembly Todolendar.API.dll --startup-assembly Todolendar.API.dll --project Todolendar.API`
+- then actually run the migration: `dotnet ef database update --assembly <YourApiDll> --startup-assembly <YourApiDll>`
