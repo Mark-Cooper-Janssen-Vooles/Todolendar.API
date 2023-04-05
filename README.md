@@ -62,6 +62,7 @@ However, when using CodeDeploy there is one more step. You cannot simply run `do
   - We need to run the application as a daemon process. This will help with restarts etc too 
   - This app has used pm2 to manage it as a background process which takes care of starting, stopping and restarting it 
 
+Note that the EC2 is using a elastic IP address, which enables it to have the same IP address if restarted or rebooted. 
 
 ---
 
