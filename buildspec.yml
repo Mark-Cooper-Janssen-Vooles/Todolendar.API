@@ -16,4 +16,4 @@ artifacts:
     - ./appspec.yml
     - ./deploy-scripts/*
     - ./Todolendar.API/publish/**/*
-    - ./Todolendar.API.csproj
+    - ./Toedolendar.API/Todolendar.API.csproj
