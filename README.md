@@ -69,4 +69,12 @@ Note that the EC2 is using a elastic IP address, which enables it to have the sa
 ## Database 
 
 A mySQL database is used in production. 
-To navigate to this, make sure you are signed into AWS SSO.
+
+To set this up, I manually created an mysql database in RDS. 
+- Used the free tier 
+- Set a username and password
+- Made sure the VPC was the same as the EC2
+- After creating it, went into the security group for it and added an inbound rule with "custom TCP" with the port as 3306 (the port the sql db is open to), and put the source as the security group for the ec2 (i.e. it should start with sg-*)
+- tested the connection is working in the ec2 
+  - `sudo yum install telnet`
+  - `telnet <db endpoint> 3306`
