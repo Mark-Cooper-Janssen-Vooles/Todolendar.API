@@ -90,5 +90,5 @@ From here, need to set up migrations:
     - `export PATH="$PATH:$HOME/.dotnet/tools"`
     - run this to make sure its installed: `dotnet ef --version`
   - `dotnet ef migrations add InitialCreate --assembly <YourApiDll> --startup-assembly <YourApiDll> --project <YourApiProject>`
-    - in our case: `dotnet ef migrations add InitialCreate --assembly Todolendar.API.dll --startup-assembly Todolendar.API.dll --project ../../Todolendar.API.csproj`
+    - in our case: `dotnet ef migrations add InitialCreate --assembly Todolendar.API.dll --startup-assembly Todolendar.API.dll --project ../Todolendar.API/Todolendar.API.csproj`
 - then actually run the migration: `dotnet ef database update --assembly <YourApiDll> --startup-assembly <YourApiDll>`
