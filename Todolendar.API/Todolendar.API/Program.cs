@@ -1,10 +1,12 @@
 using Amazon;
 using Amazon.Extensions.NETCore.Setup;
+using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
@@ -14,7 +16,7 @@ using Todolendar.API.Repositories;
 using Todolendar.API.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+var env = builder.Environment.EnvironmentName;
 
 // Add services to the container.
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -63,6 +65,38 @@ builder.Services.AddAWSService<IAmazonSecretsManager>(new AWSOptions
 {
     Region = RegionEndpoint.APSoutheast2
 });
+
+Console.WriteLine(env);
+Console.WriteLine(env == "Production");
+
+if (env == "Production")
+{
+    Console.WriteLine("env is equal to production");
+
+    string secretName = "prod/TodolendarDb/ConnectionString";
+    string region = "ap-southeast-2";
+    IAmazonSecretsManager client = new AmazonSecretsManagerClient(credentials, RegionEndpoint.GetBySystemName(region));
+    GetSecretValueRequest request = new GetSecretValueRequest
+    {
+        SecretId = secretName,
+        VersionStage = "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified.
+    };
+
+    GetSecretValueResponse response;
+
+    try
+    {
+        response = await client.GetSecretValueAsync(request);
+    }
+    catch (Exception e)
+    {
+        // For a list of the exceptions thrown, see
+        // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+        throw e;
+    }
+
+    string secret = response.SecretString;
+}
 
 builder.Services.AddDbContext<TodolendarDbContext>(async options =>
 {
