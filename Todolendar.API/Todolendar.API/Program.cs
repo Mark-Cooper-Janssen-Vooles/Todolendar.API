@@ -75,7 +75,7 @@ if (env == "Production")
 
     string secretName = "prod/TodolendarDb/ConnectionString";
     string region = "ap-southeast-2";
-    IAmazonSecretsManager client = new AmazonSecretsManagerClient(credentials, RegionEndpoint.GetBySystemName(region));
+    IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
     GetSecretValueRequest request = new GetSecretValueRequest
     {
         SecretId = secretName,
