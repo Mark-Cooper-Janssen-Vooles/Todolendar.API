@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2023-04-09T09:37:21.557Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0" etag="4dHM7ho11SEbmRefZ1s-" version="21.1.5" type="github">
+<mxfile host="app.diagrams.net" modified="2023-04-09T09:59:37.660Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0" etag="dyMiC1tGmmJN1_dtce27" version="21.1.5" type="github">
   <diagram name="Page-1" id="mzmcJaMhcML_lPMcVEql">
-    <mxGraphModel dx="1400" dy="755" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1536" dy="846" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-4" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="240" y="200" width="590" height="410" as="geometry" />
+          <mxGeometry x="240" y="200" width="590" height="550" as="geometry" />
         </mxCell>
         <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Wf9Hk3QjFSTlwRxIZkUX-6" target="Wf9Hk3QjFSTlwRxIZkUX-10">
           <mxGeometry relative="1" as="geometry" />
@@ -24,6 +24,9 @@
             <mxPoint x="-2" y="-26" as="offset" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Wf9Hk3QjFSTlwRxIZkUX-10" target="Wf9Hk3QjFSTlwRxIZkUX-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-10" value="Server&lt;br&gt;Todolendar.API&lt;br&gt;AWS EC2" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="350" y="250" width="100" height="100" as="geometry" />
         </mxCell>
@@ -31,16 +34,16 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-12" value="Database&lt;br&gt;TodolendarDB&lt;br&gt;AWS RDS" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="350" y="440" width="100" height="100" as="geometry" />
+          <mxGeometry x="350" y="590" width="100" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-13" value="React SPA &lt;br&gt;Runs through AWS CodePipeline&lt;br&gt;Triggered by commits to master&lt;br&gt;Runs AWS CodeBuild&lt;br&gt;Deployed to public static S3 bucket" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="510" y="80" width="210" height="30" as="geometry" />
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-13" value="&lt;div align=&quot;left&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;React SPA &lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Runs through AWS CodePipeline&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Triggered by commits to master&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Runs AWS CodeBuild&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Deployed to public static S3 bucket&lt;/font&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="80" width="210" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-14" value=".NET 6 API &lt;br&gt;Runs through AWS CodePipeline&lt;br&gt;Triggered by commits to master&lt;br&gt;Runs AWS CodeBuild&lt;br&gt;Runs AWS CodeDeploy&lt;br&gt;Deployed to amazon linux t2.micro EC2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="510" y="285" width="210" height="30" as="geometry" />
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-14" value="&lt;div align=&quot;left&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;.NET 6 API &lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Runs through AWS CodePipeline&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Triggered by commits to master&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Runs AWS CodeBuild&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Runs AWS CodeDeploy&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Deployed to amazon linux t2.micro EC2&lt;/font&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="270" width="210" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-15" value="mySQL DB&lt;br&gt;Manually set up" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="520" y="475" width="210" height="30" as="geometry" />
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-15" value="&lt;div align=&quot;left&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;mySQL DB&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Manually set up&lt;/font&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="365" y="700" width="210" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-16" value="Todolendar VPC" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="180" y="200" width="210" height="30" as="geometry" />
@@ -50,6 +53,33 @@
         </mxCell>
         <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-18" value="&lt;h1&gt;Non-Functional Requirements&lt;br&gt;&lt;/h1&gt;&lt;p&gt;=&amp;gt; Cheap as possible hosting&lt;br&gt; =&amp;gt; Use free-tier EC2, free-tier DB&lt;br&gt;=&amp;gt; No load balancing required, very minimal traffic&lt;br&gt;=&amp;gt; As much infrastructure as code as possible&lt;br&gt;=&amp;gt; CICD pipeline to move as agile as possible&lt;br&gt;&lt;/p&gt;&lt;h1&gt;&lt;br&gt;&lt;br&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="10" y="350" width="220" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Wf9Hk3QjFSTlwRxIZkUX-19" target="Wf9Hk3QjFSTlwRxIZkUX-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Wf9Hk3QjFSTlwRxIZkUX-19" target="Wf9Hk3QjFSTlwRxIZkUX-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-19" value="AWS SQS Queue" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="495" y="380" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-22" value="&lt;div align=&quot;left&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;When the message time is scheduled (via DelaySeconds in SQS), it triggers a Lambda function which sends the SMS to SMS Gateway&lt;/font&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="590" y="525" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Wf9Hk3QjFSTlwRxIZkUX-23" target="Wf9Hk3QjFSTlwRxIZkUX-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-23" value="Lambda" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="505" y="510" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-25" value="&lt;div align=&quot;left&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;The server sends a message to the SQS queue when a user schedules a notification.&lt;br&gt;&lt;font&gt;If user updates the schedule, it deletes the original SQS message and sends a new one.&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="600" y="405" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-26" value="SMS Gateway" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="505" y="610" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf9Hk3QjFSTlwRxIZkUX-28" value="&lt;div align=&quot;left&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Sends SMS to users mobile phone&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="590" y="620" width="190" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
