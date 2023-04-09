@@ -9,9 +9,9 @@ Features include account creation, sign-in functionality, editing your profile, 
 ---
 
 ## Planning
-Figma designs are available [here](https://www.figma.com/file/ona2QoEu6QzTcyffAervOy/Todolender?node-id=0%3A1&t=KPdD8o2qc6cbYQnZ-0).
-
-A basic database schema is available [here](https://app.diagrams.net/#G1NYqMTprbHGnyYW-6s-Pc1sLVT3hZQu_x).
+- Figma designs are available [here](https://www.figma.com/file/ona2QoEu6QzTcyffAervOy/Todolender?node-id=0%3A1&t=KPdD8o2qc6cbYQnZ-0).
+- A basic system design is available [here](https://app.diagrams.net/#HMark-Cooper-Janssen-Vooles%2FTodolendar.API%2Fmaster%2FTodolendar%20System%20Design).
+- A basic database schema is available [here](https://app.diagrams.net/#HMark-Cooper-Janssen-Vooles%2FTodolendar.API%2Fmaster%2FTodolendar.DB.Schema).
 
 ---
 
