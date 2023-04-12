@@ -1,5 +1,6 @@
 using Amazon;
 using Amazon.Extensions.NETCore.Setup;
+using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using FluentValidation.AspNetCore;
@@ -65,54 +66,47 @@ builder.Services.AddAWSService<IAmazonSecretsManager>(new AWSOptions
     Region = RegionEndpoint.APSoutheast2
 });
 
-Console.WriteLine(env);
+static async Task<string> GetSecret()
+{
+    string secretName = "prod/TodolendarDb/ConnectionString";
+    string region = "ap-southeast-2";
+
+    IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
+
+    GetSecretValueRequest request = new GetSecretValueRequest
+    {
+        SecretId = secretName,
+        VersionStage = "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified.
+    };
+
+    GetSecretValueResponse response;
+
+    try
+    {
+        response = await client.GetSecretValueAsync(request);
+    }
+    catch (Exception e)
+    {
+        throw e;
+    }
+
+    JObject json = JObject.Parse(response.SecretString);
+    string connectionString = json.GetValue("secret").ToString();
+
+    return connectionString;
+}
+
+string connectionString = ""; 
 
 builder.Services.AddDbContext<TodolendarDbContext>(async options =>
 {
     if (env == "Production")
     {
-        Console.WriteLine("env is equal to production");
-
-        // Retrieve the database connection string from AWS Secrets Manager
-        string secretName = "prod/TodolendarDb/ConnectionString";
-        string region = "ap-southeast-2";
-        IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
-        GetSecretValueRequest request = new GetSecretValueRequest
-        {
-            SecretId = secretName,
-            VersionStage = "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified.
-        };
-
-        GetSecretValueResponse response;
-
-        try
-        {
-            response = await client.GetSecretValueAsync(request);
-        }
-        catch (Exception e)
-        {
-            // For a list of the exceptions thrown, see
-            // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-            throw e;
-        }
-
-        string secret = response.SecretString;
-
-        JObject json = JObject.Parse(secret);
-        string connectionString = json.GetValue("secret").ToString();
-
-        Console.WriteLine($"{connectionString} in actual one");
-
+        Console.WriteLine(connectionString);
         options.UseSqlServer(connectionString);
 
     } else
     {
-        // string jsonString = "{\"secret\":\"server=database-1.cq3pcc0prrl2.ap-southeast-2.rds.amazonaws.com;Port=3306;Database=TodolendarDb;Uid=ok;Pwd=kk!\"}";
-
-        // JObject json = JObject.Parse(jsonString);
-        // string connectionString = json.GetValue("secret").ToString();
-
-        // Console.WriteLine(connectionString);
 
         Console.WriteLine(builder.Configuration.GetConnectionString("Todolendar"));
         options.UseSqlServer(builder.Configuration.GetConnectionString("Todolendar"));

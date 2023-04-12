@@ -45,7 +45,7 @@ namespace Todolendar.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlanReminder", (string)null);
+                    b.ToTable("PlanReminder");
                 });
 
             modelBuilder.Entity("Todolendar.API.Models.Domain.ScheduledTodo", b =>
@@ -97,7 +97,7 @@ namespace Todolendar.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ScheduledTodo", (string)null);
+                    b.ToTable("ScheduledTodo");
                 });
 
             modelBuilder.Entity("Todolendar.API.Models.Domain.ScheduledTodoChild", b =>
@@ -140,7 +140,7 @@ namespace Todolendar.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ScheduledTodoChild", (string)null);
+                    b.ToTable("ScheduledTodoChild");
                 });
 
             modelBuilder.Entity("Todolendar.API.Models.Domain.Todo", b =>
@@ -161,7 +161,7 @@ namespace Todolendar.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Todos", (string)null);
+                    b.ToTable("Todos");
                 });
 
             modelBuilder.Entity("Todolendar.API.Models.Domain.User", b =>
@@ -203,7 +203,7 @@ namespace Todolendar.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }
