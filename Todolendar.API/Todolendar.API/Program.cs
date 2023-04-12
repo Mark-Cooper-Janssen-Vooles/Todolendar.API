@@ -98,7 +98,8 @@ builder.Services.AddDbContext<TodolendarDbContext>(async options =>
 
         string secret = response.SecretString;
 
-        var connectionString = JObject.Parse(secret)["secret"].ToString();
+        JObject json = JObject.Parse(secret);
+        string connectionString = json.GetValue("secret").ToString();
 
         Console.WriteLine($"{connectionString} in actual one");
 
@@ -106,6 +107,13 @@ builder.Services.AddDbContext<TodolendarDbContext>(async options =>
 
     } else
     {
+        // string jsonString = "{\"secret\":\"server=database-1.cq3pcc0prrl2.ap-southeast-2.rds.amazonaws.com;Port=3306;Database=TodolendarDb;Uid=ok;Pwd=kk!\"}";
+
+        // JObject json = JObject.Parse(jsonString);
+        // string connectionString = json.GetValue("secret").ToString();
+
+        // Console.WriteLine(connectionString);
+
         Console.WriteLine(builder.Configuration.GetConnectionString("Todolendar"));
         options.UseSqlServer(builder.Configuration.GetConnectionString("Todolendar"));
     }
