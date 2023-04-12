@@ -67,7 +67,6 @@ builder.Services.AddAWSService<IAmazonSecretsManager>(new AWSOptions
 });
 
 Console.WriteLine(env);
-Console.WriteLine(env == "Production");
 
 if (env == "Production")
 {
@@ -96,6 +95,7 @@ if (env == "Production")
     }
 
     string secret = response.SecretString;
+    Console.WriteLine($"{secret} in first one");
 }
 
 builder.Services.AddDbContext<TodolendarDbContext>(async options =>
@@ -128,6 +128,8 @@ builder.Services.AddDbContext<TodolendarDbContext>(async options =>
         }
 
         string secret = response.SecretString;
+
+        Console.WriteLine($"{secret} in actual one");
 
         options.UseSqlServer(secret);
 
