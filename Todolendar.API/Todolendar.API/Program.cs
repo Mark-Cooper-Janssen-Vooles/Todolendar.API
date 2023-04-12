@@ -99,7 +99,9 @@ static async Task<string> GetSecret()
 
 string connectionString = ""; 
 
-connectionString = await GetSecret();
+if (env == "Production") {
+    connectionString = await GetSecret();
+}
 Console.WriteLine(env);
 
 builder.Services.AddDbContext<TodolendarDbContext>(options =>
@@ -107,9 +109,8 @@ builder.Services.AddDbContext<TodolendarDbContext>(options =>
     if (env == "Production")
     {
         Console.WriteLine(connectionString);
-        options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 32)), options => {
-            options.DisableBackslashEscaping();
-        });
+        options.UseMySQL(connectionString);
+        // options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 32)));
 
         //options.UseMySql(connectionString, mySqlOptions =>
         //{
@@ -120,9 +121,10 @@ builder.Services.AddDbContext<TodolendarDbContext>(options =>
     }
     else
     {
+        //Console.WriteLine(builder.Configuration.GetConnectionString("Todolendar"));
+        //options.UseMySql(builder.Configuration.GetConnectionString("Todolendar"), new MySqlServerVersion(new Version(8, 0, 32)));
 
-        Console.WriteLine(builder.Configuration.GetConnectionString("Todolendar"));
-        options.UseSqlServer(builder.Configuration.GetConnectionString("Todolendar"));
+        options.UseMySQL("server=localhost;user=root;password=password;database=TodolenderDb");
     }
 });
 
