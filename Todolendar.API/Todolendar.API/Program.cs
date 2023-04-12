@@ -106,9 +106,16 @@ builder.Services.AddDbContext<TodolendarDbContext>(options =>
     if (env == "Production")
     {
         Console.WriteLine(connectionString);
-        options.UseSqlServer(connectionString);
+        options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 26)));
 
-    } else
+        //options.UseMySql(connectionString, mySqlOptions =>
+        //{
+        //    mySqlOptions.CharSetBehavior(CharSetBehavior.AppendToUnicode);
+        //    mySqlOptions.CommandTimeout(60);
+        //    mySqlOptions.NoBackslashEscapes(true);
+        //});
+    }
+    else
     {
 
         Console.WriteLine(builder.Configuration.GetConnectionString("Todolendar"));
