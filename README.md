@@ -79,7 +79,7 @@ To set this up, I manually created an mysql database in RDS.
   - `sudo yum install mysql`
   - `mysql -h database-1.cq3pcc0prrl2.ap-southeast-2.rds.amazonaws.com -u admin -p`
     - you will be prompted to enter the password
-  - to see inside the database for tables etc, run `show databases;`
+  - to see inside the database for tables etc, run `show databases;`,  to see inside tables use `use todolendardb;` and `show tables;`
     - type `exit` to exit the mysql command line
 
 From here, need to set up migrations:
@@ -89,6 +89,10 @@ From here, need to set up migrations:
     - `dotnet tool install --global dotnet-ef`
     - `export PATH="$PATH:$HOME/.dotnet/tools"`
     - run this to make sure its installed: `dotnet ef --version`
-  - `dotnet ef migrations add InitialCreate --assembly <YourApiDll> --startup-assembly <YourApiDll> --project <YourApiProject>`
-    - in our case: `dotnet ef migrations add InitialCreate --assembly Todolendar.API.dll --startup-assembly Todolendar.API.dll --project ../Todolendar.API/Todolendar.API.csproj`
-- then actually run the migration: `dotnet ef database update --assembly <YourApiDll> --startup-assembly <YourApiDll>`
+  - cd into the api project. /api/Todolendar.API/Todolendar.API and run `dotnet ef migrations add InitialCreate`
+- then actually run the migration: `dotnet ef database update`
+- You should see a success message now. You can connect to the database again and check the tables are there. 
+- This should be a once off when setting up the EC2. May need to do another migration if the models change etc. 
+
+---
+
