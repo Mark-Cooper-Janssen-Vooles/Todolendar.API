@@ -98,7 +98,10 @@ static async Task<string> GetSecret()
 
 string connectionString = ""; 
 
-builder.Services.AddDbContext<TodolendarDbContext>(async options =>
+connectionString = await GetSecret();
+Console.WriteLine(env);
+
+builder.Services.AddDbContext<TodolendarDbContext>(options =>
 {
     if (env == "Production")
     {
