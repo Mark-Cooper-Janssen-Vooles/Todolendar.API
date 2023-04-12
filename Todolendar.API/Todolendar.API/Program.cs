@@ -106,7 +106,7 @@ builder.Services.AddDbContext<TodolendarDbContext>(options =>
     if (env == "Production")
     {
         Console.WriteLine(connectionString);
-        options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 26)));
+        options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 32)));
 
         //options.UseMySql(connectionString, mySqlOptions =>
         //{
