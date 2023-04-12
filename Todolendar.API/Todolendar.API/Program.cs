@@ -1,14 +1,13 @@
 using Amazon;
 using Amazon.Extensions.NETCore.Setup;
-using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Linq;
 using System.Security.Claims;
 using System.Text;
 using Todolendar.API.Data;
@@ -68,36 +67,6 @@ builder.Services.AddAWSService<IAmazonSecretsManager>(new AWSOptions
 
 Console.WriteLine(env);
 
-if (env == "Production")
-{
-    Console.WriteLine("env is equal to production");
-
-    string secretName = "prod/TodolendarDb/ConnectionString";
-    string region = "ap-southeast-2";
-    IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
-    GetSecretValueRequest request = new GetSecretValueRequest
-    {
-        SecretId = secretName,
-        VersionStage = "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified.
-    };
-
-    GetSecretValueResponse response;
-
-    try
-    {
-        response = await client.GetSecretValueAsync(request);
-    }
-    catch (Exception e)
-    {
-        // For a list of the exceptions thrown, see
-        // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-        throw e;
-    }
-
-    string secret = response.SecretString;
-    Console.WriteLine($"{secret} in first one");
-}
-
 builder.Services.AddDbContext<TodolendarDbContext>(async options =>
 {
     if (env == "Production")
@@ -129,12 +98,15 @@ builder.Services.AddDbContext<TodolendarDbContext>(async options =>
 
         string secret = response.SecretString;
 
-        Console.WriteLine($"{secret} in actual one");
+        var connectionString = JObject.Parse(secret)["secret"].ToString();
 
-        options.UseSqlServer(secret);
+        Console.WriteLine($"{connectionString} in actual one");
+
+        options.UseSqlServer(connectionString);
 
     } else
     {
+        Console.WriteLine(builder.Configuration.GetConnectionString("Todolendar"));
         options.UseSqlServer(builder.Configuration.GetConnectionString("Todolendar"));
     }
 });
