@@ -71,7 +71,6 @@ static async Task<string> GetSecret()
     string secretName = "prod/TodolendarDb/ConnectionString";
     string region = "ap-southeast-2";
 
-
     IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
 
     GetSecretValueRequest request = new GetSecretValueRequest
@@ -111,7 +110,6 @@ builder.Services.AddDbContext<TodolendarDbContext>(options =>
         Console.WriteLine(connectionString);
         options.UseMySQL(connectionString);
         // options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 32)));
-
         //options.UseMySql(connectionString, mySqlOptions =>
         //{
         //    mySqlOptions.CharSetBehavior(CharSetBehavior.AppendToUnicode);
@@ -121,9 +119,6 @@ builder.Services.AddDbContext<TodolendarDbContext>(options =>
     }
     else
     {
-        //Console.WriteLine(builder.Configuration.GetConnectionString("Todolendar"));
-        //options.UseMySql(builder.Configuration.GetConnectionString("Todolendar"), new MySqlServerVersion(new Version(8, 0, 32)));
-
         options.UseMySQL("server=localhost;user=root;password=password;database=TodolenderDb");
     }
 });
