@@ -135,6 +135,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             jwtKeyToUse = builder.Configuration["Jwt:Key"];
         }
 
+        Console.WriteLine(jwtKeyToUse);
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
