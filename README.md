@@ -52,17 +52,41 @@ Build use the buildspec.yml, running the commands and outputting the artifacts i
 It requires an IAM role attached which has s3 write permissions. 
 
 ### CodeDeploy
-Deploy uses the appspec.yml file. It requires to be linked to an the EC2 instance with an IAM role allowing s3 permissions and codeDeploy permissions. The EC2 instance must also have the CodeDeploy agent installed, which has been done in my case using a `User Data` script, attached to the EC2 which runs on startup. 
 
-The appspec uses the beforeInstall, ApplicationStart and ApplicationStop hooks which have their own deploy-scripts.
+#### Step 1: appspec.yml
+- Deploy uses the appspec.yml file. It requires to be linked to an the EC2 instance with an IAM role allowing s3 permissions and codeDeploy permissions. The EC2 instance must also have the CodeDeploy agent installed, which has been done in my case using a `User Data` script, attached to the EC2 which runs on startup. 
+- The appspec uses the beforeInstall, ApplicationStart and ApplicationStop hooks which have their own deploy-scripts.
 
-To expose the API in the browser, i've written a guide about it [here](https://github.com/Mark-Cooper-Janssen-Vooles/devops-webdev-guide#exposing-an-api-on-an-ec2).
-
-However, when using CodeDeploy there is one more step. You cannot simply run `dotnet Todolendar.API.dll --urls "http://*:5000;https://*:5001"` because this will be a constantly running process, and the script will timeout. To fix this issue:
+#### Step 2: Expose the API in the browser
+- To expose the API in the browser, i've written a guide about it [here](https://github.com/Mark-Cooper-Janssen-Vooles/devops-webdev-guide#exposing-an-api-on-an-ec2).
+- However, when using CodeDeploy there is one more step. You cannot simply run `dotnet Todolendar.API.dll --urls "http://*:5000;https://*:5001"` because this will be a constantly running process, and the script will timeout. To fix this issue:
   - We need to run the application as a daemon process. This will help with restarts etc too 
   - This app has used pm2 to manage it as a background process which takes care of starting, stopping and restarting it 
 
-Note that the EC2 is using a elastic IP address, which enables it to have the same IP address if restarted or rebooted. 
+#### Step 3: Use an elastic IP address
+- Note that the EC2 is using a elastic IP address, which enables it to have the same IP address if restarted or rebooted. 
+- We will need this as our UI will be looking for a single url for prod, and if the ec2 is restarted it will mean our app is broken unless using an elastic IP.
+- With pm2 and the elastic IP address, the baseUrl is now:
+  - `https://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5001` 
+  - with its ping healthcheck endpoint at: `https://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5001/Ping/`. You can access this, but you need to 'accept the risks' because there is no SSL/TLS
+
+#### Step 4: SSL/TLS 
+- The first 3 steps above get us a working URL but we need to accept the risks. From the [UI](http://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com/), the app doesn't work unless we first go to the API and accept them manually. 
+- To set up an SSL/TLS on an ec2 we can follow this [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/SSL-on-amazon-linux-2.html)
+  - install apache: `sudo yum install httpd -y`
+  - start it: `sudo systemctl start httpd`
+  - enable it to start automatically on system boot: `sudo systemctl start httpd`
+    - if the correct ports are open you should be able to see the default apache page at `https://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com`. 
+  - we need some config now to reverse proxy the pm2 setup through the apache:
+    - confirm pm2 is running, and you can visit this site: `http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5000/Ping/`
+    - if so, we need to change the apache config. To do so run `sudo nano /etc/httpd/conf/httpd.conf` and at the top of this document paste: 
+    ````
+    ProxyPass "/" "http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5000/"
+    ProxyPassReverse "/" "http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5000/"
+    ````
+    - this will now proxy all requests straight to http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com, so you can use http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com/ping instead now. 
+    - info was from [here](https://medium.com/@iamabhi222/hosting-nodejs-application-on-aws-ec2-amazon-linux-2-ami-using-apache2-web-server-ee87ef14d20).
+
 
 ---
 
