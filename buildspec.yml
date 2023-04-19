@@ -16,5 +16,5 @@ artifacts:
     - ./appspec.yml
     - ./deploy-scripts/*
     - ./Todolendar.API/publish/**/*
-    - ./Todolendar.API/**/*
+    - ./Todolendar.API/**/* # note: had some troubles getting ef migrations working, ideally should just be the publish folder above
   
