@@ -104,9 +104,6 @@ if (env == "Production")
     jwtKeyToUse = builder.Configuration["Jwt:Key"];
 }
 
-Console.WriteLine(jwtKeyToUse);
-Console.WriteLine(builder.Configuration["Jwt:Key"]);
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => 
     options.TokenValidationParameters = new TokenValidationParameters

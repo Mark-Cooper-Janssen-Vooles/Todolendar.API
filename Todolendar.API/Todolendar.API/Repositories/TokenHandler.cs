@@ -23,7 +23,6 @@ namespace Todolendar.API.Repositories
         public async Task<string> FetchJwtKey()
         {
             var env = _env.EnvironmentName;
-            Console.WriteLine(env);
             string jwtKey = "";
             if (env == "Production")
             {
@@ -47,8 +46,6 @@ namespace Todolendar.API.Repositories
             claims.Add(new Claim(ClaimTypes.UserData, user.Id.ToString()));
 
             string jwtKey = await FetchJwtKey();
-
-            Console.WriteLine(jwtKey);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
