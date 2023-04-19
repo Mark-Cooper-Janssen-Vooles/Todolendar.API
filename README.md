@@ -131,3 +131,9 @@ To set this up, I manually created an mysql database in RDS.
     ProxyPassReverse "/" "http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5000/"
     ````
 - The database migrations above
+
+---
+
+## Debugging 
+
+One way is to log into the ec2 as `ec2-user` and use the command `pm2 logs` to see logs live as the endpoints are hit.
