@@ -66,41 +66,12 @@ builder.Services.AddAWSService<IAmazonSecretsManager>(new AWSOptions
     Region = RegionEndpoint.APSoutheast2
 });
 
-static async Task<string> GetSecret(string secretName, string value)
-{
-    string region = "ap-southeast-2";
-
-    IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
-
-    GetSecretValueRequest request = new GetSecretValueRequest
-    {
-        SecretId = secretName,
-        VersionStage = "AWSCURRENT",
-    };
-
-    GetSecretValueResponse response;
-
-    try
-    {
-        response = await client.GetSecretValueAsync(request);
-    }
-    catch (Exception e)
-    {
-        throw e;
-    }
-
-    JObject json = JObject.Parse(response.SecretString);
-    string connectionString = json.GetValue(value).ToString();
-
-    return connectionString;
-}
-
 string connectionString = "";
 string jwtKeyProduction = "";
 
 if (env == "Production") {
-    connectionString = await GetSecret("prod/TodolendarDb/ConnectionString", "secret");
-    jwtKeyProduction = await GetSecret("prod/Todolendar/Jwt", "jwt");
+    connectionString = await GetAWSSecret.GetSecret("prod/TodolendarDb/ConnectionString", "secret");
+    jwtKeyProduction = await GetAWSSecret.GetSecret("prod/Todolendar/Jwt", "jwt");
 }
 
 builder.Services.AddDbContext<TodolendarDbContext>(options =>

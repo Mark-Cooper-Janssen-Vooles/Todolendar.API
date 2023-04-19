@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.ObjectPool;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -10,13 +12,32 @@ namespace Todolendar.API.Repositories
     public class TokenHandler : ITokenHandler
     {
         private readonly IConfiguration config;
+        private readonly IWebHostEnvironment _env;
 
-        public TokenHandler(IConfiguration config)
+        public TokenHandler(IConfiguration config, IWebHostEnvironment env)
         {
             this.config = config;
+            this._env = env;
         }
 
-        public Task<string> CreateTokenAsync(User user)
+        public async Task<string> FetchJwtKey()
+        {
+            var env = _env.EnvironmentName;
+            Console.WriteLine(env);
+            string jwtKey = "";
+            if (env == "Production")
+            {
+                jwtKey = await GetAWSSecret.GetSecret("prod/Todolendar/Jwt", "jwt");
+            }
+            else
+            {
+                jwtKey = config["Jwt:Key"];
+            }
+
+            return jwtKey;
+        } 
+
+        public async Task<string> CreateTokenAsync(User user)
         {
             // create claims 
             var claims = new List<Claim>();
@@ -25,7 +46,11 @@ namespace Todolendar.API.Repositories
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
             claims.Add(new Claim(ClaimTypes.UserData, user.Id.ToString()));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
+            string jwtKey = await FetchJwtKey();
+
+            Console.WriteLine(jwtKey);
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
@@ -35,7 +60,7 @@ namespace Todolendar.API.Repositories
                 expires: DateTime.Now.AddMinutes(720), // 720 (12hrs) minutes till expiry
                 signingCredentials: credentials);
 
-            return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
+            return await Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
         }
     }
 }
