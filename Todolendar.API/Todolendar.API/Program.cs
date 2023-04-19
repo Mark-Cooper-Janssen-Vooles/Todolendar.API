@@ -66,9 +66,8 @@ builder.Services.AddAWSService<IAmazonSecretsManager>(new AWSOptions
     Region = RegionEndpoint.APSoutheast2
 });
 
-static async Task<string> GetSecret()
+static async Task<string> GetSecret(string secretName, string value)
 {
-    string secretName = "prod/TodolendarDb/ConnectionString";
     string region = "ap-southeast-2";
 
     IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
@@ -91,15 +90,17 @@ static async Task<string> GetSecret()
     }
 
     JObject json = JObject.Parse(response.SecretString);
-    string connectionString = json.GetValue("secret").ToString();
+    string connectionString = json.GetValue(value).ToString();
 
     return connectionString;
 }
 
-string connectionString = ""; 
+string connectionString = "";
+string jwtKeyProduction = "";
 
 if (env == "Production") {
-    connectionString = await GetSecret();
+    connectionString = await GetSecret("prod/TodolendarDb/ConnectionString", "secret");
+    jwtKeyProduction = await GetSecret("prod/Todolendar/Jwt", "jwt");
 }
 
 builder.Services.AddDbContext<TodolendarDbContext>(options =>
@@ -124,18 +125,29 @@ builder.Services.AddScoped<IHashHandler, Todolendar.API.Repositories.HashHandler
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-    });
+    .AddJwtBearer(options => {
+        string jwtKeyToUse = "";
+        if (env == "Production")
+        {
+            jwtKeyToUse = jwtKeyProduction;
+        } else 
+        {
+            jwtKeyToUse = builder.Configuration["Jwt:Key"];
+        }
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtKeyToUse))
+        };
+    }
+);
 
 builder.Services.AddAuthorization(options =>
 {
