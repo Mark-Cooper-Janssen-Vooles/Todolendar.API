@@ -85,8 +85,8 @@ It requires an IAM role attached which has s3 write permissions.
     ProxyPassReverse "/" "http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5000/"
     ````
     - this will now proxy all requests straight to http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com, so you can use http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com/ping instead now. 
+    - note we're not able to use https (i believe we need a SSL/TLS certificate which costs more $)
     - info was from [here](https://medium.com/@iamabhi222/hosting-nodejs-application-on-aws-ec2-amazon-linux-2-ami-using-apache2-web-server-ee87ef14d20).
-
 
 ---
 
