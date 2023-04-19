@@ -76,7 +76,7 @@ static async Task<string> GetSecret()
     GetSecretValueRequest request = new GetSecretValueRequest
     {
         SecretId = secretName,
-        VersionStage = "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified.
+        VersionStage = "AWSCURRENT",
     };
 
     GetSecretValueResponse response;
@@ -101,21 +101,12 @@ string connectionString = "";
 if (env == "Production") {
     connectionString = await GetSecret();
 }
-Console.WriteLine(env);
 
 builder.Services.AddDbContext<TodolendarDbContext>(options =>
 {
     if (env == "Production")
     {
-        Console.WriteLine(connectionString);
         options.UseMySQL(connectionString);
-        // options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 32)));
-        //options.UseMySql(connectionString, mySqlOptions =>
-        //{
-        //    mySqlOptions.CharSetBehavior(CharSetBehavior.AppendToUnicode);
-        //    mySqlOptions.CommandTimeout(60);
-        //    mySqlOptions.NoBackslashEscapes(true);
-        //});
     }
     else
     {
@@ -173,7 +164,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(MyAllowSpecificOrigins);
 
-//app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); // this is commented out as we don't have an SSL / TLS certificate (costs $$ or reconfig)
 
 app.UseAuthentication();
 

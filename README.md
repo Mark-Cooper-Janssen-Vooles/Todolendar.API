@@ -123,3 +123,11 @@ To set this up, I manually created an mysql database in RDS.
 
 ---
 
+## Once-Off steps: 
+- In ec2 as root, configure apache config:
+  - run `sudo nano /etc/httpd/conf/httpd.conf` and at the top of this document paste: 
+    ````
+    ProxyPass "/" "http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5000/"
+    ProxyPassReverse "/" "http://ec2-13-210-0-133.ap-southeast-2.compute.amazonaws.com:5000/"
+    ````
+- The database migrations above

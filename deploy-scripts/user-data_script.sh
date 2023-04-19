@@ -11,3 +11,9 @@ cd /home/ec2-user
 aws s3 cp s3://aws-codedeploy-ap-southeast-2/latest/install . --region ap-southeast-2
 chmod +x ./install
 ./install auto
+
+# new: 
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl start httpd
+sudo yum install mysql
