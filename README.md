@@ -34,6 +34,8 @@ This project was inspired by a tutorial which can be found [here](https://github
 
 ## Running Locally 
 
+To start the project, in the terminal first cd into the project directory (where the .csproj is stored), i.e. from the root: `cd /Todolendar.API/Todolendar.API` and then run `dotnet run`.
+
 First you will need to create a database in MSSQLSERVER named "Todolendar", and set the connection string in appsettings.json (there are examples existing). You will then need to run via the package manager console `Add-Migration` as well as `Update-Database` for entity framework to create the database connection.
 
 If testing the endpoint via swagger, you will need to first create a user and then login. The login endpoint will give you a bearer you must authenticate with to use the other endpoints, each endpoint is accessibile only for that user. 
