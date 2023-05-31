@@ -32,15 +32,31 @@ namespace Todolendar.API.Repositories
                 // create scheduledTodo Children
                 for (int i = childrenToCreate; i > 0; i--)
                 {
-                    var newScheduledAtTime = scheduledTodo.ScheduledAt;
+                    DateTime newScheduledAtTime = scheduledTodo.ScheduledAt;
 
-                    if ( i == scheduledTodo.RecurCount )
+                    // 3+1, 3 = 1
+                    // 3+1, 2 = 2
+                    // 3+1, 1 = 3
+                    var currentIteration = scheduledTodo.RecurCount + 1 - i;
+
+                    if ((int)scheduledTodo.RecurFrequencyType == 1) // daily
                     {
-                        // first child, check frequency type 
-                        if ((int)scheduledTodo.RecurFrequencyType == 1)
-                        {
-                            newScheduledAtTime = scheduledTodo.ScheduledAt.AddDays(1); 
-                        }
+                        newScheduledAtTime.AddDays(currentIteration);
+                    }
+
+                    if ((int)scheduledTodo.RecurFrequencyType == 2) // weekly
+                    {
+                        newScheduledAtTime.AddDays(7 * currentIteration);
+                    }
+
+                    if ((int)scheduledTodo.RecurFrequencyType == 3) // monthly
+                    {
+                        newScheduledAtTime.AddMonths(currentIteration);
+                    }
+
+                    if ((int)scheduledTodo.RecurFrequencyType == 4) // yearly
+                    {
+                        newScheduledAtTime.AddYears(currentIteration);
                     }
 
                     var childScheduledTodo = new ScheduledTodo()
@@ -56,21 +72,14 @@ namespace Todolendar.API.Repositories
                         RecurEndDate = scheduledTodo.RecurEndDate, // this isn't a proper value. don't think we need this
                         NotifyBeforeTime = scheduledTodo.NotifyBeforeTime,
                         CreatedAt = scheduledTodo.CreatedAt,
-                        LastUpdatedAt   = scheduledTodo.LastUpdatedAt,
-                        ScheduledAt = scheduledTodo.ScheduledAt, // custom
-                        TriggeredAt = scheduledTodo.TriggeredAt, // ??
+                        LastUpdatedAt = scheduledTodo.LastUpdatedAt,
+                        ScheduledAt = newScheduledAtTime,
+                        TriggeredAt = scheduledTodo.TriggeredAt,
                     };
+
+                    await dbContext.ScheduledTodo.AddAsync(childScheduledTodo);
+                    await dbContext.SaveChangesAsync();
                 }
-
-                //scheduledTodo.RecurFrequencyType
-                //scheduledTodo.RecurCount
-
-
-                // take scheduled at time (this todo) 
-                // look at recurFrequency time (i.e. weekly or daily, monthly)
-                // create ScheduledTodoChildren based on above.
-
-                // create scheduled todo children => need to iterate through to make them all. 
             }
 
             await dbContext.ScheduledTodo.AddAsync(scheduledTodo);
