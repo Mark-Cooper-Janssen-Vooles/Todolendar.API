@@ -28,6 +28,44 @@ namespace Todolendar.API.Repositories
             // TODO: add logic for scheduledTodoChild 
             if (scheduledTodo.RecurCount > 0)
             {
+                var childrenToCreate = scheduledTodo.RecurCount;
+                // create scheduledTodo Children
+                for (int i = childrenToCreate; i > 0; i--)
+                {
+                    var newScheduledAtTime = scheduledTodo.ScheduledAt;
+
+                    if ( i == scheduledTodo.RecurCount )
+                    {
+                        // first child, check frequency type 
+                        if ((int)scheduledTodo.RecurFrequencyType == 1)
+                        {
+                            newScheduledAtTime = scheduledTodo.ScheduledAt.AddDays(1); 
+                        }
+                    }
+
+                    var childScheduledTodo = new ScheduledTodo()
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = userId,
+                        Title = scheduledTodo.Title,
+                        Description = scheduledTodo.Description,
+                        Colour = scheduledTodo.Colour,
+                        Active = scheduledTodo.Active,
+                        RecurCount = 0,
+                        RecurFrequencyType = 0,
+                        RecurEndDate = scheduledTodo.RecurEndDate, // this isn't a proper value. don't think we need this
+                        NotifyBeforeTime = scheduledTodo.NotifyBeforeTime,
+                        CreatedAt = scheduledTodo.CreatedAt,
+                        LastUpdatedAt   = scheduledTodo.LastUpdatedAt,
+                        ScheduledAt = scheduledTodo.ScheduledAt, // custom
+                        TriggeredAt = scheduledTodo.TriggeredAt, // ??
+                    };
+                }
+
+                //scheduledTodo.RecurFrequencyType
+                //scheduledTodo.RecurCount
+
+
                 // take scheduled at time (this todo) 
                 // look at recurFrequency time (i.e. weekly or daily, monthly)
                 // create ScheduledTodoChildren based on above.
