@@ -30,7 +30,7 @@ namespace Todolendar.API.Repositories
             {
                 var childrenToCreate = scheduledTodo.RecurCount;
                 // create scheduledTodo Children
-                for (int i = childrenToCreate; i > 0; i--)
+                for (int i = childrenToCreate; i > 1; i--)
                 {
                     DateTime newScheduledAtTime = scheduledTodo.ScheduledAt;
 
@@ -41,22 +41,22 @@ namespace Todolendar.API.Repositories
 
                     if ((int)scheduledTodo.RecurFrequencyType == 1) // daily
                     {
-                        newScheduledAtTime.AddDays(currentIteration);
+                        newScheduledAtTime = newScheduledAtTime.AddDays(currentIteration);
                     }
 
                     if ((int)scheduledTodo.RecurFrequencyType == 2) // weekly
                     {
-                        newScheduledAtTime.AddDays(7 * currentIteration);
+                        newScheduledAtTime = newScheduledAtTime.AddDays(7 * currentIteration);
                     }
 
                     if ((int)scheduledTodo.RecurFrequencyType == 3) // monthly
                     {
-                        newScheduledAtTime.AddMonths(currentIteration);
+                        newScheduledAtTime = newScheduledAtTime.AddMonths(currentIteration);
                     }
 
                     if ((int)scheduledTodo.RecurFrequencyType == 4) // yearly
                     {
-                        newScheduledAtTime.AddYears(currentIteration);
+                        newScheduledAtTime = newScheduledAtTime.AddYears(currentIteration);
                     }
 
                     var childScheduledTodo = new ScheduledTodo()
