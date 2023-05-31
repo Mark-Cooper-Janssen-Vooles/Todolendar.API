@@ -29,8 +29,8 @@ namespace Todolendar.API.Repositories
             if (scheduledTodo.RecurCount > 0)
             {
                 // take scheduled at time (this todo) 
-                // look at recurFrequency time (i.e. weekly or daily)
-                // create ScheduledTodoChildren based on 
+                // look at recurFrequency time (i.e. weekly or daily, monthly)
+                // create ScheduledTodoChildren based on above.
 
                 // create scheduled todo children => need to iterate through to make them all. 
             }

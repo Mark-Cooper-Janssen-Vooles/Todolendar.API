@@ -12,3 +12,5 @@
         public DateTime ScheduledAt { get; set; }
     }
 }
+
+// recurFrequencyType can be 'daily', 'weekly', 'monthly'
