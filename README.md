@@ -34,7 +34,7 @@ This project was inspired by a tutorial which can be found [here](https://github
 
 ## Running Locally 
 
-To start the project, in the terminal first cd into the project directory (where the .csproj is stored), i.e. from the root: `cd /Todolendar.API/Todolendar.API` and then run `dotnet run`.
+To start the project, in the terminal first cd into the project directory (where the .csproj is stored), i.e. from the root: `cd ./Todolendar.API/Todolendar.API` and then run `dotnet run`.
 
 If it is your first time running the project after cloning, first you will need to create a database locally in MSSQLSERVER named "Todolendar", and set the connection string in appsettings.development.json (there are examples existing). You will then need to run via the package manager console `Add-Migration` as well as `Update-Database` for entity framework to create the database connection.
 
